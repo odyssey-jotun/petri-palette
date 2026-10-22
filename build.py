@@ -68,17 +68,19 @@ SERIES = [
           "see": "Look for the pinch in the middle."},
      ]},
     {"id": "protein-transcription", "name": "Protein Transcription",
-     "intro": "How a gene becomes a protein. In the nucleus, a gene's DNA is copied into messenger RNA (transcription). A ribosome then reads that RNA and links amino acids into a protein (translation).",
+     "intro": "How a gene becomes a protein. In the nucleus, a gene's DNA is copied into messenger RNA (transcription). A ribosome then reads that RNA and links amino acids into a protein (translation), and the Golgi apparatus packages the finished protein.",
      "pieces": [
-         {"id": "protein-1", "title": "DNA to RNA", "meta": "Painting in progress", "draw": "dna", "art": None,
-          "text": "Inside the nucleus, the DNA double helix unzips and one strand is copied into a single strand of messenger RNA.",
-          "see": ""},
-         {"id": "protein-2", "title": "Leaving the Nucleus", "meta": "Painting in progress", "draw": "mrna", "art": None,
-          "text": "The messenger RNA travels out of the nucleus and into the cytoplasm, where the cell builds its proteins.",
-          "see": ""},
-         {"id": "protein-3", "title": "The Ribosome", "meta": "Painting in progress", "draw": "ribosome", "art": None,
+         {"id": "dna-to-rna", "title": "DNA to RNA", "meta": "Transcription", "draw": "dna", "art": ("dna-helix.webp", 711, 890),
+          "alt": "a gold DNA double helix unzipping across a blue cloud on a dark background, with colored base pairs and a new strand inside",
+          "text": "Inside the nucleus, the DNA double helix unzips, and one strand is copied into a single strand of messenger RNA. That copy carries the gene's instructions out of the nucleus.",
+          "see": "Look for the new strand forming inside the open section of the helix."},
+         {"id": "the-ribosome", "title": "The Ribosome", "meta": "Painting in progress", "draw": "ribosome", "art": None,
           "text": "A ribosome reads the RNA three letters at a time and links one amino acid for each, folding the chain into a working protein.",
           "see": ""},
+         {"id": "golgi-apparatus", "title": "The Golgi Apparatus", "meta": "Packaging", "draw": "mrna", "art": ("golgi-apparatus.webp", 713, 694),
+          "alt": "a stack of curved dark and red-orange sacs on a teal background, ringed by round orange vesicles",
+          "text": "Newly made proteins pass through the Golgi apparatus, a stack of flattened sacs that sorts and packages them. Small bubbles called vesicles bud off the edges and carry the finished proteins where they need to go.",
+          "see": "Look for the stacked sacs and the round vesicles around them."},
      ]},
 ]
 N_PIECES = sum(len(s["pieces"]) for s in SERIES)
@@ -338,8 +340,9 @@ def draw(kind):
 
 def piece_html(p):
     if p["art"]:
-        frame = (f'<figure class="frame art"><img src="images/art/{p["art"]}" width="960" height="1200" '
-                 f'alt="{AUTHOR}\'s painting of {p["title"].lower()}" loading="lazy" decoding="async"></figure>')
+        src, w, h = p["art"]
+        frame = (f'<figure class="frame art" style="aspect-ratio:{w}/{h}"><img src="images/art/{src}" width="{w}" height="{h}" '
+                 f'alt="{AUTHOR}\'s painting: {p["alt"]}" loading="lazy" decoding="async"></figure>')
     else:
         frame = f'<figure class="frame">{draw(p["draw"])}<figcaption class="soon">Painting coming soon</figcaption></figure>'
     see = f'\n          <p class="see">{p["see"]}</p>' if p["see"] else ""
@@ -416,7 +419,7 @@ def index():
       <p>I won Best in Class in Biology as a freshman and in Genetics as a junior, and one of my paintings was shown at the Arkansas Museum of Fine Arts in ninth grade. This project is where those two halves meet: I paint the cells and processes that are hardest to imagine, so more students can see that science is within their reach.</p>
       <p>This past summer I spent six weeks as a Stephens Summer Science Scholar at the University of Arkansas for Medical Sciences, researching metastatic melanoma and ER stress in a working lab, and presented my research at the UAMS undergraduate research symposium.</p>
     </div>
-    {photo("microscope", "A researcher in a lab coat and blue gloves looking through a microscope")}
+    <figure class="frame art about-art" style="aspect-ratio:711/890"><img src="images/art/dna-helix.webp" width="711" height="890" alt="{AUTHOR}'s painting of a gold DNA double helix unzipping across a blue cloud" loading="lazy" decoding="async"></figure>
   </div>
   <div class="wrap">
     <ul class="strip">
@@ -473,7 +476,7 @@ def index():
       <a class="card" href="exhibit.html#protein-transcription">
         <div class="icon">{ICON_HELIX}</div>
         <h3>Protein Transcription</h3>
-        <p>How a gene's DNA is copied into RNA and built into a protein.</p>
+        <p>How a gene's DNA is copied into RNA, built into a protein and packaged by the Golgi apparatus.</p>
       </a>
     </div>
   </div>

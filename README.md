@@ -40,9 +40,9 @@ Styles live in `styles.css` and are minified and inlined by the build.
 
 - The site name, and the gallery where the paintings will hang ("Organized gallery showing at ___").
 - What "Goggle Series" means visually. The copy does not guess.
-- Titles for the three Protein Transcription paintings. The current titles (DNA to RNA, Leaving the Nucleus, The Ribosome) are placeholders. Strictly, transcription only makes the RNA; translation builds the protein, so the series intro explains both.
+- Titles for the Protein Transcription paintings. Two are in (cropped from a screenshot of the shared Apple Note "Scanned...", 2026-10-22): the DNA helix (titled "DNA to RNA" by us) and the stacked-sacs painting, identified by us as the Golgi apparatus. The Ribosome card is a placeholder. Strictly, transcription only makes the RNA; translation builds the protein, so the series intro explains both. Higher-resolution scans would replace the screenshot crops in `images/art/` (originals in `images/art/originals/`, gitignored).
 - "Flat cells" is written up as squamous cells. Confirm that is what she means.
-- Her first-person section was drafted from her activities list and needs her approval, plus a real photo of her (the current microscope photo is stock).
+- Her first-person section was drafted from her activities list and needs her approval, plus a real photo of her. Her section shows her DNA painting for now.
 
 ## Photos
 
@@ -53,5 +53,5 @@ All from Unsplash under the Unsplash licence, cropped and color-graded.
 | `hero-gallery-bench`, `og.jpg` | Home hero | `ABdRtZKWJfE` | Eri Pançi |
 | `hero-bright-gallery` | Exhibit hero | `qxvOmDuQDsg` | Caroline Badran |
 | `hero-boy-painting` | Research hero | `hbZOr0FfNNE` | Egor Myznik |
-| `microscope` | Home, Lily's section | `6q5QG8iIgRo` | Trust Katsande |
+| `microscope` | Not used (Lily's section now shows her DNA painting) | `6q5QG8iIgRo` | Trust Katsande |
 | `watercolor` | Research, art section | `YKLkzMuEA8Q` | Madalyn Cox |
