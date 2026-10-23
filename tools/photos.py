@@ -25,6 +25,7 @@ JOBS = {
     "hero-boy-painting": ("hbZOr0FfNNE", 3 / 2, 0.5, 0.45, "hero"),
     "microscope": ("6q5QG8iIgRo", 4 / 3, 0.6, 0.4, "photo"),
     "watercolor": ("YKLkzMuEA8Q", 4 / 3, 0.5, 0.5, "photo"),
+    "hero-gallery-visitor": ("AlLKJ292jOQ", 3 / 2, 0.55, 0.5, "hero"),
 }
 for name, (src, ratio, fx, fy, kind) in JOBS.items():
     im = grade(crop(Image.open(f"images/originals/{src}.jpg"), ratio, fx, fy))

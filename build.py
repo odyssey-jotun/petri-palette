@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds every page of Science You Can See.
+"""Builds every page of Petri Palette.
 
 Run: python3 build.py
 The site name lives in SITE_NAME below. Change it there, rebuild, and every
@@ -14,10 +14,10 @@ import json
 import re
 
 # ---------------------------------------------------------------- settings
-SITE_NAME = "Science You Can See"
+SITE_NAME = "Petri Palette"
 AUTHOR = "Lily Butler"
-SITE = "https://odyssey-jotun.github.io/science-you-can-see/"
-TODAY = "2026-10-22"
+SITE = "https://odyssey-jotun.github.io/petri-palette/"
+TODAY = "2026-10-23"
 
 # Sources, cited in plain text. No links on purpose (see README).
 SOURCES = {
@@ -187,7 +187,7 @@ def crumbs(name, path):
         {"@type": "ListItem", "position": 2, "name": name, "item": SITE + path}]}
 
 
-PAGES = [("index.html", "Home"), ("exhibit.html", "The Exhibit"), ("research.html", "The Research")]
+PAGES = [("index.html", "Home"), ("exhibit.html", "The Exhibit"), ("artists.html", "The Artists"), ("research.html", "The Research")]
 
 
 def wordmark():
@@ -245,13 +245,14 @@ def sources(keys, heading="Sources", note=""):
 """
 
 
-def cta(heading, text, href, label):
+def cta(heading, text, href, label, second=None):
+    extra = f'<a href="{second[0]}" class="btn ghost">{second[1]}</a>' if second else ""
     return f"""
 <section class="closing">
   <div class="wrap">
     <h2>{heading}</h2>
     <p>{text}</p>
-    <div class="btn-row"><a href="{href}" class="btn">{label}</a></div>
+    <div class="btn-row"><a href="{href}" class="btn">{label}</a>{extra}</div>
   </div>
 </section>
 """
@@ -263,15 +264,21 @@ def svg(body, vb="0 0 48 48", sw="2.6"):
             f'stroke-linejoin="round" aria-hidden="true">{body}</svg>')
 
 
-MARK = ('<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#1F3D63"/>'
-        '<circle cx="16" cy="16" r="9.5" fill="none" stroke="#EEF2F6" stroke-width="2"/>'
-        '<circle cx="17.5" cy="14.5" r="3.6" fill="#E58AA6"/></svg>')
+# A petri dish holding three dabs of paint in colors from Lily's paintings.
+DISH = ('<rect width="32" height="32" rx="9" fill="#1F3D63"/>'
+        '<circle cx="16" cy="16" r="10.5" fill="none" stroke="#EEF2F6" stroke-width="2"/>'
+        '<circle cx="12.6" cy="13.4" r="3.1" fill="#E8C77A"/><circle cx="19.6" cy="12.8" r="2.6" fill="#E58AA6"/>'
+        '<circle cx="16.6" cy="19.8" r="3" fill="#5BB4E0"/>')
+MARK = f'<svg class="mark" viewBox="0 0 32 32" aria-hidden="true">{DISH}</svg>'
 ICON_SCORE = svg('<path d="M6 40h36"/><path d="M10 34V20M20 34V12M30 34v-8M40 34v-4"/><path d="M8 10l12 6 10 10 10 4"/>')
 ICON_SPARK = svg('<circle cx="24" cy="24" r="17"/><path d="M17 30c2 -2 4.5-3 7-3s5 1 7 3"/><path d="M18 19v1M30 19v1"/>')
 ICON_EYE = svg('<path d="M4 24s7-12 20-12 20 12 20 12-7 12-20 12S4 24 4 24z"/><circle cx="24" cy="24" r="6"/>')
 ICON_GOGGLES = svg('<path d="M4 22c0-4 3-6 7-6h26c4 0 7 2 7 6v4c0 4-3 6-7 6h-6c-3 0-4-4-7-4s-4 4-7 4h-6c-4 0-7-2-7-6z"/><circle cx="14" cy="24" r="4"/><circle cx="34" cy="24" r="4"/>')
 ICON_SPLIT = svg('<path d="M24 8c-8 0-14 7-14 16s6 16 14 16"/><path d="M24 8c8 0 14 7 14 16s-6 16-14 16"/><path d="M24 12v24" stroke-dasharray="3 4"/>')
 ICON_HELIX = svg('<path d="M14 6c0 12 20 12 20 24S14 42 14 42"/><path d="M34 6c0 12-20 12-20 24s20 12 20 12"/><path d="M17 12h14M20 18h8M20 30h8M17 36h14"/>')
+ICON_BRUSH = svg('<path d="M30 8l10 10-16 16-10-10z"/><path d="M14 24c-6 0-8 4-8 8 0 3-1 6-2 8 6 0 14-1 16-7"/><path d="M26 12l10 10"/>')
+ICON_SCOPE = svg('<path d="M20 6l8 4-8 16-8-4z"/><path d="M22 26c6 2 10 7 10 12"/><path d="M8 42h32"/><path d="M14 36h20"/><circle cx="34" cy="20" r="3"/>')
+ICON_DISH = svg('<ellipse cx="24" cy="28" rx="19" ry="9"/><path d="M5 28v4c0 5 8.5 9 19 9s19-4 19-9v-4"/><circle cx="17" cy="27" r="2.6"/><circle cx="27" cy="25" r="2"/><circle cx="30" cy="30" r="2.4"/>')
 CHECK = svg('<path d="M10 25l9 9 19-20"/>', sw="3.4")
 CROSS = svg('<path d="M14 14l20 20M34 14L14 34"/>', sw="3.4")
 
@@ -395,19 +402,18 @@ def index():
       <div class="card">
         <div class="icon">{ICON_SPARK}</div>
         <p class="num">42%</p>
-        <h3>Fewer students enjoy science at all</h3>
+        <h3>Students decide science is not for them</h3>
         <p>In 2019, 52% of eighth graders said they enjoyed science activities. By 2024 it was 42%, and interest in what they learn in science class fell from 47% to 39%.</p>
         <p class="of">of eighth graders say they enjoy science activities</p>
       </div>
       <div class="card">
         <div class="icon">{ICON_EYE}</div>
         <p class="num">&minus;5 pts</p>
-        <h3>Biology is hard to learn when nobody can picture it</h3>
-        <p>Cells, chromosomes and proteins are invisible to the eye, and fewer eighth graders now say they often use experimental evidence to explain why something happens.</p>
+        <h3>Every student deserves to see what they are learning</h3>
+        <p>Cells, chromosomes and proteins are invisible to the eye, and fewer eighth graders now say they often use experimental evidence to explain why something happens. Too much of biology arrives as words with nothing to look at.</p>
         <p class="of">drop since 2019 in students who often use evidence from experiments</p>
       </div>
     </div>
-    <p class="punch">No student should give up on biology because nobody ever showed them what a cell looks like.</p>
   </div>
 </section>
 
@@ -417,7 +423,7 @@ def index():
       <h2>A painter who has also worked in a cancer research lab</h2>
       <p class="name-line">I'm {AUTHOR}, a senior at Episcopal Collegiate School in Little Rock, and I paint the parts of biology that are hardest to imagine.</p>
       <p>I won Best in Class in Biology as a freshman and in Genetics as a junior, and one of my paintings was shown at the Arkansas Museum of Fine Arts in ninth grade. This project is where those two halves meet: I paint the cells and processes that are hardest to imagine, so more students can see that science is within their reach.</p>
-      <p>This past summer I spent six weeks as a Stephens Summer Science Scholar at the University of Arkansas for Medical Sciences, researching metastatic melanoma and ER stress in a working lab, and presented my research at the UAMS undergraduate research symposium.</p>
+      <p>This past summer I spent six weeks as a Stephens Summer Science Scholar at the University of Arkansas for Medical Sciences, researching metastatic melanoma and ER stress in a working lab, and presented my research at the UAMS undergraduate research symposium. At school I'm vice president of our National Honor Society chapter, where I built and run the peer tutoring program.</p>
     </div>
     <figure class="frame art about-art" style="aspect-ratio:711/890"><img src="images/art/dna-helix.webp" width="711" height="890" alt="{AUTHOR}'s painting of a gold DNA double helix unzipping across a blue cloud" loading="lazy" decoding="async"></figure>
   </div>
@@ -509,7 +515,7 @@ def index():
 </section>
 """ + cta("See the cells for yourself",
           f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings, each with a title card that explains the science in a minute or less.",
-          "exhibit.html", "Walk through the exhibit") + sources(["nagb", "edsource"]) + "\n</main>\n" + foot()
+          "exhibit.html", "Walk through the exhibit", ("artists.html", "Meet the artists who paint cells")) + sources(["nagb", "edsource"]) + "\n</main>\n" + foot()
 
 
 # ---------------------------------------------------------------- exhibit
@@ -557,6 +563,261 @@ def exhibit():
 """ + cta("Why these paintings matter",
           "Student interest in science has dropped since 2019. See the research that shaped this exhibit and what studies say about learning science through art.",
           "research.html", "Read the research") + "\n</main>\n" + foot()
+
+
+# ---------------------------------------------------------------- artists
+# The Artists page: a digital exhibit of the genre Petri Palette belongs to.
+# Every image is public domain or openly licensed, credited in plain text.
+# Artists whose work is all rights reserved are described in words only
+# (MORE_ARTISTS) until Lily has their permission to show an image.
+ARTISTS_HERO = "hero-gallery-visitor"
+ARTISTS_HERO_ALT = "A young woman in a bright gallery studying a framed painting on the wall"
+ARTISTS_HERO_CREDIT = "Pauline Loroy, Unsplash."
+ARTISTS_H1 = "Artists have painted cells for more than 350 years"
+ARTISTS_LEDE = ("Petri Palette belongs to a genre called science art, or SciArt, that began with a drawing of cork in 1665. "
+                "This gallery gathers the scientists and artists who paint cells, microbes and the molecules inside them, "
+                "with a title card for every piece.")
+
+WHY_HEAD = "Biology learned what cells look like from drawings"
+WHY_LEDE = "Before cameras could be fitted to microscopes, a drawing was the only way to show anyone else what a cell looked like."
+WHY = [
+    {"icon": ICON_SCOPE, "title": "Drawings came first",
+     "text": "Robert Hooke's 1665 drawing of cork gave biology the word cell. Santiago Ram&oacute;n y Cajal's drawings of nerve cells, "
+             "made for work that shared the 1906 Nobel Prize in Physiology or Medicine, are still in use today."},
+    {"icon": ICON_HELIX, "title": "Scientists still paint",
+     "text": "David Goodsell holds a PhD in biochemistry, Greg Dunn a doctorate in neuroscience, and Hunter Cole a PhD in genetics. "
+             "Each one turns what they know from the lab into art."},
+    {"icon": ICON_EYE, "title": "Pictures help science stick",
+     "text": "In a randomized study of fifth graders, science units taught with the arts built in led to better retention two months "
+             "later for students reading below grade level."},
+]
+
+PAIR_MITOSIS = ("exhibit.html#mitosis", "Mitosis series")
+GENRE = [
+    {"id": "drawn-at-the-microscope", "name": "Drawn at the microscope",
+     "intro": "The first pictures of cells were made by scientists who looked through a lens and drew what they saw. Their drawings taught the world what a cell looks like.",
+     "pieces": [
+         {"id": "hooke-cork", "img": ("hooke-cork", 1000, 996), "title": "Cork, from Micrographia",
+          "artist": "Robert Hooke", "date": "1665, printed plate",
+          "alt": "Hooke's drawing of two slices of cork inside a black circle, one showing rows of small boxes and the other a honeycomb of round holes",
+          "text": "Hooke was apprenticed to a painter at 13 before he turned to science, and he drew the plates for his book himself. In a thin slice of cork he saw rows of tiny boxes that reminded him of the small rooms in a monastery, and he called them cells. The word stuck.",
+          "credit": "Public domain",
+          "source": "Robert Hooke, Micrographia (1665), Schem. XI. Scan: National Library of Wales. Public domain, via Wikimedia Commons."},
+         {"id": "flemming-mitosis", "img": ("flemming-mitosis", 680, 965), "title": "Cell Division, Plate IIIb",
+          "artist": "Walther Flemming", "date": "1882, printed plate",
+          "alt": "Flemming's drawings of dividing cells, with dark thread-like chromosomes gathering, lining up, pulling apart and finally splitting into two cells",
+          "text": "Flemming drew dividing cells stage by stage, from chromosomes bunched in the middle to a cell pinching in two. In the same book he named the process mitosis, from the Greek word for thread.",
+          "pair": PAIR_MITOSIS, "credit": "CC BY 4.0, Wellcome Collection",
+          "source": "Walther Flemming, Zellsubstanz, Kern und Zelltheilung (1882), Tafel IIIb, cropped from the two-page spread. Wellcome Collection, CC BY 4.0, via Wikimedia Commons."},
+         {"id": "cajal-purkinje", "img": ("cajal-purkinje", 1000, 660), "title": "Purkinje Neurons",
+          "artist": "Santiago Ram&oacute;n y Cajal", "date": "about 1900, drawing",
+          "alt": "Cajal's drawing of dark nerve cells with long tails and tangled branches on yellowed paper, labeled with letters",
+          "text": "Cajal, a Spanish physician and keen painter, stained brain tissue so single nerve cells turned black, then drew them. Purkinje neurons sit in the cerebellum, the part of the brain that coordinates movement. Cajal shared the 1906 Nobel Prize with Camillo Golgi, the scientist the Golgi apparatus is named after.",
+          "pair": ("exhibit.html#golgi-apparatus", "Golgi Apparatus painting"), "credit": "Public domain",
+          "source": "Santiago Ram&oacute;n y Cajal, Purkinje neurons, about 1900. Cajal Institute (CSIC), Madrid. Public domain, via Wikimedia Commons."},
+     ]},
+    {"id": "inside-the-cell", "name": "Painting the inside of a cell",
+     "intro": "Scientist painters today work from research data and lab images to show what no single microscope picture can: a whole cell, with every part in its place.",
+     "pieces": [
+         {"id": "goodsell-ecoli", "img": ("goodsell-ecoli", 1000, 1000), "title": "Escherichia coli Bacterium",
+          "artist": "David S. Goodsell", "date": "2021, watercolor",
+          "alt": "Goodsell's watercolor cross-section of a bacterium: a green cell wall, a yellow tangle of DNA, and crowds of purple, blue and orange molecules",
+          "text": "Goodsell, a biochemist at Scripps Research, paints part of a living cell magnified about a million times, with molecules placed from research data. Here an E. coli cell is cut open: the green wall, the yellow tangle of DNA, and reddish purple ribosomes that build proteins.",
+          "pair": ("exhibit.html#protein-transcription", "Protein Transcription series"), "credit": "CC BY 4.0, RCSB Protein Data Bank",
+          "source": "Illustration by David S. Goodsell, RCSB Protein Data Bank. doi: 10.2210/rcsb_pdb/goodsell-gallery-028. CC BY 4.0."},
+         {"id": "goodsell-mycoplasma", "img": ("goodsell-mycoplasma", 1000, 975), "title": "Mycoplasma mycoides",
+          "artist": "David S. Goodsell", "date": "2011, watercolor",
+          "alt": "Goodsell's watercolor of a whole round bacterial cell with a fuzzy green edge, packed inside with yellow strands and pink and blue molecules",
+          "text": "This painting shows an entire bacterial cell about 300 nanometers across, small enough that a thousand of them in a row would still be thinner than a credit card is thick.",
+          "credit": "CC BY 4.0, RCSB Protein Data Bank",
+          "source": "Illustration by David S. Goodsell, The Scripps Research Institute. doi: 10.2210/rcsb_pdb/goodsell-gallery-011. CC BY 4.0."},
+         {"id": "harris-retina", "img": ("harris-retina", 1000, 1243), "title": "Cell Fates in Zebrafish Retina",
+          "artist": "Prof. Bill Harris", "date": "acrylic painting",
+          "alt": "A bright acrylic painting of rows of cells in three layers, each cell outlined in a different color with a colored nucleus",
+          "text": "An impression of a nearly mature zebrafish retina, its cells settled into three layers and colored by type. The painting was inspired by the multicolored fluorescent proteins researchers use to label different kinds of cells.",
+          "credit": "CC BY 4.0, Wellcome Collection",
+          "source": "Cell fates in zebrafish retina, acrylic painting. Prof. Bill Harris. CC BY 4.0. Source: Wellcome Collection."},
+     ]},
+    {"id": "cells-as-fine-art", "name": "Cells as fine art",
+     "intro": "Some painters treat cells the way other artists treat landscapes and portraits, choosing them for their color, shape and drama.",
+     "pieces": [
+         {"id": "noel-t-cell", "img": ("noel-t-cell", 1000, 1001), "title": "St George and the Dragon",
+          "artist": "Odra Noel", "date": "paint on silk",
+          "alt": "A pale blue immune cell reaching out to a green cancer cell on a background of swirling peach tissue",
+          "text": "Noel trained as a doctor and earned a PhD in basic science before she began painting cells on silk. Here a killer T cell, one of the immune system's defenders, destroys a cancer cell, cast as the knight and the dragon.",
+          "pair": ("exhibit.html#cancer-cells", "Cancer Cells painting"), "credit": "CC BY-NC 4.0, Wellcome Collection",
+          "source": "St George and the dragon: T lymphocyte killing a cancer cell. Odra Noel. CC BY-NC 4.0. Source: Wellcome Collection."},
+         {"id": "noel-blood", "img": ("noel-blood", 1000, 1198), "title": "Blood Cells Through the Microscope",
+          "artist": "Odra Noel", "date": "paint on silk",
+          "alt": "Round magenta red blood cells drifting past a blue white blood cell on a pale yellow background",
+          "text": "Part of this painting is what a microscope shows and part is the artist's impression of blood cells and the structures around them. The round red cells are the healthy shape that sickle cell disease bends out of form.",
+          "pair": ("exhibit.html#sickle-cells", "Sickle Cells painting"), "credit": "CC BY-NC 4.0, Wellcome Collection",
+          "source": "Blood cells through the microscope. Odra Noel. CC BY-NC 4.0. Source: Wellcome Collection."},
+         {"id": "magrath-neurones", "img": ("magrath-neurones", 1000, 781), "title": "Neurones Connecting",
+          "artist": "Stephen Magrath", "date": "ink on paper",
+          "alt": "Two deep blue nerve cells with pink centers reaching toward each other with long branching arms on white paper",
+          "text": "Neurons are the cells of the nervous system, and they carry information as electrical signals. This painting shows two of them reaching toward each other, the way nerve cells connect to pass a message along.",
+          "credit": "CC0, Wellcome Collection",
+          "source": "Neurones connecting, artwork. Stephen Magrath. CC0 1.0. Source: Wellcome Collection."},
+     ]},
+]
+
+AGAR = {"img": ("agar-butterfly", 1000, 1000),
+        "alt": "A red butterfly grown from living microbes on the agar in a round glass petri dish",
+        "source": "Microbial Art, Ajay Kumar Chaurasiya, 2021. CC BY-SA 4.0, via Wikimedia Commons. Cropped; the crop is shared under the same license."}
+
+MORE_LEDE = "Their work is protected by copyright, so this gallery describes it in words. Every one of them is worth looking up."
+MORE_ARTISTS = [
+    {"name": "Klari Reis", "where": "Epoxy paintings in petri dishes, San Francisco",
+     "text": "Reis pours dyed epoxy into plastic petri dishes and hangs them by the dozen. The work began after she was diagnosed with Crohn's disease and a doctor let her watch her own cells react to different drugs under a microscope."},
+    {"name": "Michele Banks", "where": "Watercolor cells and viruses, Washington, DC",
+     "text": "Banks lets wet watercolor bleed into branching patterns that look like blood vessels and brain cells. She has said her best known paintings are her images of mitosis."},
+    {"name": "Greg Dunn", "where": "Neurons in ink and gold, Philadelphia",
+     "text": "Dunn earned a doctorate in neuroscience and paints neurons in Japanese sumi-e ink, often on gold leaf. The style began by accident, when he blew on wet ink and it spread into shapes like nerve cells."},
+    {"name": "Hunter Cole", "where": "Drawings in glowing bacteria, North Carolina",
+     "text": "Cole, a geneticist, paints with bioluminescent bacteria on petri dishes. The drawings glow blue-green and fade over about two weeks as the bacteria run out of food, so she photographs them while they last."},
+    {"name": "Luke Jerram", "where": "Glass sculptures of microbes, Bristol, England",
+     "text": "Jerram, who is color-blind, designs clear glass sculptures of viruses and microbes with virologists. He leaves out color on purpose, to question the bright false colors in many pictures of microbes."},
+    {"name": "Rogan Brown", "where": "Paper sculptures of microbes, France",
+     "text": "Brown cuts layered paper into microbes and cells by hand or by laser. His sculpture Outbreak (2014) took about four months to plan, cut and assemble, and he names Ernst Haeckel as an inspiration."},
+]
+
+FITS_HEAD = "Where Petri Palette fits in"
+FITS_BODY = """      <p>Petri Palette adds a student's brush to this tradition. Lily Butler paints the cells high school biology asks students to learn: cancer cells and sickle cells, the stages of mitosis, and the path from gene to protein.</p>
+      <p>Each painting hangs beside a title card that explains the science in plain language. Her painting of the Golgi apparatus, shown here, pictures the organelle named for Camillo Golgi, who shared the 1906 Nobel Prize with Cajal.</p>"""
+
+
+def genre_piece(p):
+    name, w, h = p["img"]
+    pair = ""
+    if p.get("pair"):
+        pair = f'\n          <p class="see">Pairs with Lily\'s <a href="{p["pair"][0]}">{p["pair"][1]}</a>.</p>'
+
+    sizes = "(max-width: 620px) calc(100vw - 40px), (max-width: 900px) 45vw, 340px"
+    return f"""      <article class="piece" id="{p["id"]}">
+        <figure class="frame art" style="aspect-ratio:{w}/{h}"><img src="images/genre/{name}-600.webp" srcset="images/genre/{name}-600.webp 600w, images/genre/{name}-1000.webp {w}w" sizes="{sizes}" width="{w}" height="{h}" alt="{p["alt"]}" loading="lazy" decoding="async"></figure>
+        <div class="label">
+          <h3>{p["title"]}</h3>
+          <p class="meta">{p["artist"]} &middot; {p["date"]}</p>
+          <p>{p["text"]}</p>{pair}
+          <p class="credit">{p["credit"]}</p>
+        </div>
+      </article>"""
+
+
+def artists():
+    t = f"Science Art: Artists Who Paint Cells and Microbes | {SITE_NAME}"
+    d = ("A digital exhibit of science art, from Robert Hooke's 1665 drawing of cork cells to painters working today: "
+         "the artists and scientists who paint cells, microbes and the molecules inside them.")
+    items = [{"@type": "ListItem", "position": i, "name": f'{p["title"]}, {p["artist"]}', "url": SITE + "artists.html#" + p["id"]}
+             for i, p in enumerate((p for r in GENRE for p in r["pieces"]), 1)]
+    schema = [page_schema("CollectionPage", "artists.html", t, d,
+                          {"mainEntity": {"@type": "ItemList", "itemListElement": items}}),
+              crumbs("The Artists", "artists.html")]
+    why = "\n".join(f"""      <div class="card">
+        <div class="icon">{c["icon"]}</div>
+        <h3>{c["title"]}</h3>
+        <p>{c["text"]}</p>
+      </div>""" for c in WHY)
+    rooms = []
+    for i, r in enumerate(GENRE):
+        band = " band" if i % 2 else ""
+        rooms.append(f"""
+<section class="series{band}" id="{r["id"]}">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>{r["name"]}</h2>
+      <p>{r["intro"]}</p>
+    </div>
+    <div class="wall">
+{chr(10).join(genre_piece(p) for p in r["pieces"])}
+    </div>
+  </div>
+</section>""")
+    more = "\n".join(f"""      <div class="card">
+        <div class="icon">{ICON_BRUSH}</div>
+        <h3>{a["name"]}</h3>
+        <p class="where">{a["where"]}</p>
+        <p>{a["text"]}</p>
+      </div>""" for a in MORE_ARTISTS)
+    credits = "\n".join(f'      <li>{p["source"]}</li>' for r in GENRE for p in r["pieces"])
+    first = GENRE[0]["id"] if GENRE else ""
+    return head(t, d, "artists.html", schema, hero=ARTISTS_HERO, sizes=PAGE_SIZES) + nav("artists.html") + f"""
+<main id="main">
+
+<header class="page-hero">
+  <div class="wrap split">
+    <div>
+      <h1>{ARTISTS_H1}</h1>
+      <p class="lede">{ARTISTS_LEDE}</p>
+      <div class="btn-row center">
+        <a href="#{first}" class="btn">Walk through the gallery</a>
+      </div>
+    </div>
+    {hero_img(ARTISTS_HERO, ARTISTS_HERO_ALT, PAGE_SIZES)}
+  </div>
+</header>
+
+<section id="why" class="band">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>{WHY_HEAD}</h2>
+      <p>{WHY_LEDE}</p>
+    </div>
+    <div class="cards">
+{why}
+    </div>
+  </div>
+</section>
+{"".join(rooms)}
+
+<section id="petri-dish-art" class="band">
+  <div class="wrap split">
+    <figure class="frame art about-art" style="aspect-ratio:1/1"><img src="images/genre/agar-butterfly-600.webp" srcset="images/genre/agar-butterfly-600.webp 600w, images/genre/agar-butterfly-1000.webp 1000w" sizes="(max-width: 620px) calc(100vw - 40px), 400px" width="1000" height="1000" alt="{AGAR["alt"]}" loading="lazy" decoding="async"></figure>
+    <div>
+      <h2>When the petri dish becomes the palette</h2>
+      <p>Microbiologists paint too, with living microbes for paint and a petri dish of agar for a canvas. Ajay Kumar Chaurasiya grew this butterfly in 2021. Alexander Fleming, who discovered penicillin, made germ paintings on agar with colored bacteria, and since 2015 the American Society for Microbiology has run an Agar Art contest. Its 2024 contest drew a record 445 entries.</p>
+      <p class="cite-line">Sources: American Society for Microbiology, Agar Art contest results, 2024; Hektoen International, Sir Alexander Fleming, 2020.</p>
+    </div>
+  </div>
+</section>
+
+<section id="more-artists">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>More artists working in the genre</h2>
+      <p>{MORE_LEDE}</p>
+    </div>
+    <div class="cards">
+{more}
+    </div>
+  </div>
+</section>
+
+<section id="lily" class="band">
+  <div class="wrap split flip">
+    <figure class="frame art about-art" style="aspect-ratio:713/694"><img src="images/art/golgi-apparatus.webp" width="713" height="694" alt="{AUTHOR}'s painting of the Golgi apparatus: stacked dark and red-orange sacs on a teal background, ringed by round vesicles" loading="lazy" decoding="async"></figure>
+    <div>
+      <h2>{FITS_HEAD}</h2>
+{FITS_BODY}
+    </div>
+  </div>
+</section>
+""" + cta("See the cells Lily paints",
+          f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings of cells, mitosis and the path from gene to protein, each with a title card.",
+          "exhibit.html", "Walk through the exhibit", ("research.html", "Read the research")) + f"""
+<section class="refs" id="credits">
+  <div class="wrap">
+    <h2>Image credits</h2>
+    <ol>
+{credits}
+      <li>{AGAR["source"]}</li>
+      <li>Photo at the top of the page: {ARTISTS_HERO_CREDIT}</li>
+    </ol>
+  </div>
+</section>
+</main>
+""" + foot()
 
 
 # ---------------------------------------------------------------- research
@@ -682,12 +943,10 @@ def sitemap():
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n'
 
 
-FAVICON = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#1F3D63"/>'
-           '<circle cx="16" cy="16" r="9.5" fill="none" stroke="#EEF2F6" stroke-width="2"/>'
-           '<circle cx="17.5" cy="14.5" r="3.6" fill="#E58AA6"/></svg>\n')
+FAVICON = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">{DISH}</svg>\n'
 
 if __name__ == "__main__":
-    out = {"index.html": index, "exhibit.html": exhibit, "research.html": research}
+    out = {"index.html": index, "exhibit.html": exhibit, "artists.html": artists, "research.html": research}
     for name, fn in out.items():
         with open(name, "w") as f:
             f.write(fn())

@@ -1,7 +1,7 @@
 @font-face{ font-family:'Newsreader'; font-style:normal; font-weight:600 700; font-display:swap; src:url(fonts/newsreader.woff2) format('woff2'); }
 @font-face{ font-family:'Public Sans'; font-style:normal; font-weight:400 700; font-display:swap; src:url(fonts/public-sans.woff2) format('woff2'); }
 /* ------------------------------------------------------------------
-   Science You Can See shared styles.
+   Petri Palette shared styles.
    Palette from a stained microscope slide on a gallery wall:
    hematoxylin blue for nuclei, eosin rose for cytoplasm, off-white wall.
    ------------------------------------------------------------------ */
@@ -371,3 +371,7 @@ a.card{ text-decoration: none; color: inherit; transition: border-color 0.15s ea
 a.card:hover{ border-color: var(--rose); }
 a.card:hover h3{ color: var(--primary); }
 .about-art{ max-width: 400px; justify-self: center; }
+
+/* ---------------- artists page ---------------- */
+.label .credit{ font-size: 0.82rem; font-style: italic; color: var(--ink-soft); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.card .where{ font-size: 0.92rem; font-weight: 700; color: var(--rose); margin: 0 0 10px; }
