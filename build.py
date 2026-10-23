@@ -143,7 +143,7 @@ def head(title, desc, path="", schema=None, hero=None, sizes=HOME_SIZES, preload
 <meta property="og:image" content="{SITE}images/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Two young visitors on a gallery bench looking at a painting">
+<meta property="og:image:alt" content="Lily Butler, the student artist behind Petri Palette, smiling outside a brick building">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 {preload}<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
@@ -357,19 +357,24 @@ def index():
     d = ("My paintings of the stages of mitosis and the path from gene to protein, "
          "made to help students picture the biology they are asked to learn.")
     schema = [page_schema("WebPage", "", t, d, {"about": "Science art for biology education"})]
-    return head(t, d, "", schema, hero="hero-gallery-bench") + nav("index.html") + f"""
+    pre = ('<link rel="preload" as="image" type="image/webp" href="images/lily-column-800.webp" '
+           'imagesrcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" '
+           f'imagesizes="{LILY_SIZES}" fetchpriority="high">\n')
+    return head(t, d, "", schema, preload_html=pre) + nav("index.html") + f"""
 <main id="main">
 
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-text">
+<header class="studio-hero">
+  <div class="wrap studio">
+    <div class="studio-text">
       <h1>Paintings that let students see the cells biology class talks about</h1>
-      <p class="lede">{SITE_NAME} is my art exhibit of the stages of mitosis and the path from gene to protein. Each painting comes with a short title card I wrote to explain what is on the canvas.</p>
+      <p class="lede">I'm {AUTHOR}, and {SITE_NAME} is my art exhibit of the stages of mitosis and the path from gene to protein. Each painting comes with a short title card I wrote to explain what is on the canvas.</p>
       <div class="btn-row center">
-        <a href="exhibit.html" class="btn">Walk through the exhibit</a>
+        <a href="exhibit.html" class="btn light">Walk through the exhibit</a>
       </div>
     </div>
-    {hero_img("hero-gallery-bench", "Two young visitors sitting on a white gallery bench, studying a painting on the wall", HOME_SIZES, "hero-photo wide")}
+    <div class="studio-art">
+      {portrait("lily-column", "Lily Butler, the student artist behind Petri Palette, in a white top, leaning against a white column and smiling", "hero-photo portrait", eager=True)}
+    </div>
   </div>
 </header>
 
@@ -409,7 +414,7 @@ def index():
   <div class="wrap split">
     <div class="about-text">
       <h2>Why I paint the inside of the cell</h2>
-      <p>I'm {AUTHOR}, a senior at Episcopal Collegiate School in Little Rock. When I read the research on why students give up on science, it kept pointing to one moment: biology moves inside the cell, nothing can be seen anymore, and class turns into memorizing words.</p>
+      <p>I'm a senior at Episcopal Collegiate School in Little Rock. When I read the research on why students give up on science, it kept pointing to one moment: biology moves inside the cell, nothing can be seen anymore, and class turns into memorizing words.</p>
       <p>So I paint that part. My notes for mitosis read like stage directions: stringy and jumbled for interphase, loose and floaty for prophase, bouncy for anaphase, pinched for telophase. The summer before senior year I studied melanoma in a cancer research lab at UAMS, and in ninth grade one of my paintings was shown at the Arkansas Museum of Fine Arts. Petri Palette is where those two halves meet.</p>
       <div class="btn-row center"><a href="about.html" class="btn ghost">More about me</a></div>
     </div>

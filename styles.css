@@ -438,3 +438,9 @@ footer ul a:hover{ color: var(--gold-on-dark); }
 /* Two cards, centered */
 .cards.two{ grid-template-columns: repeat(2, minmax(0, 360px)); justify-content: center; }
 @media (max-width: 860px){ .cards.two{ grid-template-columns: 1fr; } }
+
+/* Home hero: Lily's portrait on the dark gallery band */
+.studio .hero-photo.portrait{ margin: 0 auto; width: 100%; max-width: 440px; aspect-ratio: 4/5; }
+@media (max-width: 860px){
+  .studio .hero-photo.portrait{ aspect-ratio: 1/1; max-width: 400px; }
+}

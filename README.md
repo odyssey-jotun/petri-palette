@@ -45,11 +45,10 @@ Styles live in `styles.css` and are minified and inlined by the build.
 
 ## Photos
 
-All from Unsplash under the Unsplash licence, cropped and color-graded.
+Stock photos are from Unsplash under the Unsplash licence. The home hero, the About story photo and `og.jpg` are Lily's own portraits (`lily-column`, `lily-wall`), cropped in `tools/photos.py`.
 
 | File | Used on | Unsplash ID | Photographer |
 | --- | --- | --- | --- |
-| `hero-gallery-bench`, `og.jpg` | Home hero | `ABdRtZKWJfE` | Eri Pançi |
 | `hero-bright-gallery` | Exhibit hero | `qxvOmDuQDsg` | Caroline Badran |
 | `hero-boy-painting` | Research hero | `hbZOr0FfNNE` | Egor Myznik |
 | `microscope` | Not used (the about section shows the DNA painting) | `6q5QG8iIgRo` | Trust Katsande |
