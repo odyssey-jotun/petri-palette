@@ -393,22 +393,18 @@ a.card:hover h3{ color: var(--primary); }
 
 /* ---------------- about: studio hero ----------------
    Lily's painting hangs large on a dark gallery wall (the navy of her DNA
-   painting), with her portrait pinned over its lower corner and a museum
-   title card beside it. Two motions only: the portrait rises in once, and
-   on scroll the portrait drifts a little faster than the painting. */
+   painting) with a museum title card at its corner. Two motions only: the
+   card rises in once, and on scroll it drifts a little faster than the
+   painting. */
 .studio-hero{ background: var(--primary-dk); color: var(--on-dark); padding: 64px 0 72px; overflow: hidden; }
 .studio{ display:grid; grid-template-columns: 0.92fr 1.08fr; gap: 48px; align-items:center; }
 .studio-hero h1{ color: #FFFFFF; font-size: clamp(2.2rem, 4.6vw, 3.4rem); }
 .studio-hero .lede{ color: var(--on-dark-soft); font-size: 1.14rem; margin-top: 10px; max-width: 32em; }
-.studio-art{ position: relative; padding: 0 0 64px 72px; }
-.canvas{ margin: 0 0 0 auto; width: min(100%, 470px); aspect-ratio: 711/890; border-radius: 4px; overflow: hidden;
+.studio-art{ position: relative; padding: 0 0 40px; }
+.canvas{ margin: 0 auto; width: min(100%, 470px); aspect-ratio: 711/890; border-radius: 4px; overflow: hidden;
   box-shadow: 0 0 0 1px rgba(238,242,246,0.12), 0 36px 70px -24px rgba(0,0,0,0.85); }
-.canvas img, .studio-portrait img{ display:block; width:100%; height:100%; object-fit: cover; }
-.studio-portrait{ position:absolute; left: 0; bottom: 0; margin: 0; width: 46%; max-width: 236px; aspect-ratio: 4/5;
-  border-radius: var(--radius); overflow: hidden; border: 6px solid #FFFFFF;
-  box-shadow: 0 26px 44px -18px rgba(0,0,0,0.8); }
-.studio-portrait img{ object-position: center 25%; }
-.studio-card{ position:absolute; right: 0; bottom: 4px; margin: 0; background: #FFFFFF; color: var(--ink);
+.canvas img{ display:block; width:100%; height:100%; object-fit: cover; }
+.studio-card{ position:absolute; right: max(0px, calc(50% - 290px)); bottom: 0; margin: 0; background: #FFFFFF; color: var(--ink);
   border-radius: 4px; padding: 10px 14px; font-size: 0.86rem; line-height: 1.35; max-width: 220px;
   box-shadow: 0 10px 22px -12px rgba(0,0,0,0.7); }
 .studio-card strong{ display:block; font-family:'Newsreader', Georgia, serif; font-size: 1.05rem; font-weight: 600; }
@@ -417,16 +413,14 @@ a.card:hover h3{ color: var(--primary); }
 .btn.light{ background: #FFFFFF; border-color: #FFFFFF; color: var(--primary-dk); }
 .btn.light:hover{ background: #E8C77A; border-color: #E8C77A; color: var(--primary-dk); }
 @media (prefers-reduced-motion: no-preference){
-  .studio-portrait{ animation: studio-rise 0.7s cubic-bezier(.2,.7,.2,1) 0.15s both; }
-  .studio-card{ animation: studio-fade 0.6s ease 0.45s both; }
+  .studio-card{ animation: studio-rise 0.7s cubic-bezier(.2,.7,.2,1) 0.2s both; }
 }
 @keyframes studio-rise{ from{ opacity: 0; transform: translateY(28px); } to{ opacity: 1; transform: none; } }
 @keyframes studio-fade{ from{ opacity: 0; } to{ opacity: 1; } }
 @media (max-width: 860px){
   .studio{ grid-template-columns: 1fr; gap: 34px; }
-  .studio-art{ order: -1; padding: 0 0 52px 34px; }
-  .canvas{ width: 80%; }
-  .studio-portrait{ width: 42%; border-width: 4px; }
+  .studio-art{ order: -1; padding: 0 0 36px; }
+  .canvas{ width: 84%; }
   .studio-card{ max-width: 170px; padding: 8px 11px; font-size: 0.8rem; }
   .studio-hero{ padding: 32px 0 56px; }
   .studio-hero .strip{ margin-top: 40px; }

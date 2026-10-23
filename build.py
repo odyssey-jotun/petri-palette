@@ -838,8 +838,7 @@ def about():
     </div>
     <div class="studio-art">
       <figure class="canvas" data-depth="0.05"><img src="images/art/dna-helix.webp" srcset="images/art/dna-helix-520.webp 520w, images/art/dna-helix.webp 711w" sizes="(max-width: 860px) 72vw, 470px" width="711" height="890" alt="My painting of a gold DNA double helix unzipping across a blue cloud" fetchpriority="high" decoding="async"></figure>
-      <figure class="studio-portrait" data-depth="-0.06"><img src="images/lily-column-480.webp" srcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w" sizes="(max-width: 860px) 44vw, 230px" width="480" height="600" alt="Lily Butler in a white top, leaning against a white column and smiling" decoding="async"></figure>
-      <p class="studio-card"><strong>DNA to RNA</strong><span>From my Protein Transcription series</span></p>
+      <p class="studio-card" data-depth="-0.05"><strong>DNA to RNA</strong><span>From my Protein Transcription series</span></p>
     </div>
   </div>
 </header>

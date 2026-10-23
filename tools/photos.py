@@ -36,7 +36,6 @@ for name, (src, ratio, fx, fy, kind) in JOBS.items():
 # Portraits of Lily (4:5), cropped tight with explicit boxes in original pixels.
 PORTRAITS = {
     "lily-wall": ("lily-wall", (1093, 865, 5100, 5874)),
-    "lily-column": ("lily-column", (785, 610, 4098, 4752)),
 }
 for name, (src, box) in PORTRAITS.items():
     im = grade(Image.open(f"images/originals/{src}.jpg").crop(box))
