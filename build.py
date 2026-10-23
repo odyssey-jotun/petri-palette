@@ -352,6 +352,10 @@ def piece_html(p):
 
 
 # ---------------------------------------------------------------- home
+# Home hero: Lily on one side, her painting on the other, the headline between.
+TRIP_SIZES = "(max-width: 1024px) 46vw, 300px"
+
+
 def index():
     t = f"Science Art Exhibit: Paintings of Cells and Mitosis | {SITE_NAME}"
     d = ("My paintings of the stages of mitosis and the path from gene to protein, "
@@ -359,21 +363,23 @@ def index():
     schema = [page_schema("WebPage", "", t, d, {"about": "Science art for biology education"})]
     pre = ('<link rel="preload" as="image" type="image/webp" href="images/lily-column-800.webp" '
            'imagesrcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" '
-           f'imagesizes="{LILY_SIZES}" fetchpriority="high">\n')
+           f'imagesizes="{TRIP_SIZES}" fetchpriority="high">\n')
     return head(t, d, "", schema, preload_html=pre) + nav("index.html") + f"""
 <main id="main">
 
 <header class="studio-hero">
-  <div class="wrap studio">
-    <div class="studio-text">
+  <div class="wrap trip">
+    <figure class="trip-photo"><img src="images/lily-column-800.webp" srcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" sizes="{TRIP_SIZES}" width="800" height="1000" alt="Lily Butler, the student artist behind Petri Palette, in a white top, leaning against a white column and smiling" fetchpriority="high" decoding="async"></figure>
+    <div class="trip-text">
       <h1>Paintings that let students see the cells biology class talks about</h1>
       <p class="lede">I'm {AUTHOR}, and {SITE_NAME} is my art exhibit of the stages of mitosis and the path from gene to protein. Each painting comes with a short title card I wrote to explain what is on the canvas.</p>
       <div class="btn-row center">
         <a href="exhibit.html" class="btn light">Walk through the exhibit</a>
       </div>
     </div>
-    <div class="studio-art">
-      {portrait("lily-column", "Lily Butler, the student artist behind Petri Palette, in a white top, leaning against a white column and smiling", "hero-photo portrait", eager=True)}
+    <div class="trip-art">
+      <figure class="canvas"><img src="images/art/dna-helix.webp" srcset="images/art/dna-helix-520.webp 520w, images/art/dna-helix.webp 711w" sizes="{TRIP_SIZES}" width="711" height="890" alt="My painting of a gold DNA double helix unzipping across a blue cloud" decoding="async"></figure>
+      <p class="studio-card"><strong>DNA to RNA</strong><span>From my Protein Transcription series</span></p>
     </div>
   </div>
 </header>
