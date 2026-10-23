@@ -5,12 +5,9 @@ Run from the repo root: python3 tools/photos.py
 from PIL import Image, ImageOps, ImageEnhance
 
 def grade(im):
+    # Neutral on purpose: no warm shift, so gallery walls stay lab white.
     im = ImageOps.autocontrast(im.convert("RGB"), cutoff=0.6)
-    im = ImageEnhance.Color(im).enhance(1.08)
-    r, g, b = im.split()
-    r = r.point(lambda v: min(255, int(v * 1.025)))
-    b = b.point(lambda v: int(v * 0.98))
-    return Image.merge("RGB", (r, g, b))
+    return ImageEnhance.Color(im).enhance(1.08)
 
 def crop(im, ratio, fx=0.5, fy=0.5):
     w, h = im.size

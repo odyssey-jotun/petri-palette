@@ -35,19 +35,6 @@ SOURCES = {
 # "art": file name in images/art/ once Lily's painting is scanned, else None.
 # "title" stays as the subject until Lily names the painting.
 SERIES = [
-    {"id": "goggle-series", "name": "The Goggle Series",
-     "intro": "Three cells whose shape tells a story about health and disease, from cells that will not stop dividing to red blood cells bent out of shape.",
-     "pieces": [
-         {"id": "cancer-cells", "title": "Cancer Cells", "meta": "Goggles 1", "draw": "cancer", "art": None,
-          "text": "Cancer cells keep dividing after the signals that stop healthy cells have shut off. Under a microscope they often look irregular, with large, uneven nuclei, and they crowd the healthy tissue around them.",
-          "see": "Look for the uneven shapes and oversized nuclei."},
-         {"id": "flat-cells", "title": "Flat Cells", "meta": "Goggles 2", "draw": "flat", "art": None,
-          "text": "Flat cells, called squamous cells, are thin and shaped like scales. They line surfaces such as the outer layer of skin, the inside of the mouth and the tiny air sacs of the lungs.",
-          "see": "Look for the thin, tile-like cells pressed edge to edge."},
-         {"id": "sickle-cells", "title": "Sickle Cells", "meta": "Goggles 3", "draw": "sickle", "art": None,
-          "text": "Healthy red blood cells are round, flexible discs. In sickle cell disease, an inherited change in the hemoglobin gene makes red blood cells stiff and curved like a crescent, so they can stick in small blood vessels and block blood flow.",
-          "see": "Look for the crescent cells beside the round ones."},
-     ]},
     {"id": "mitosis", "name": "Mitosis",
      "intro": "One cell becoming two, painted as five stages. Human cells carry 46 chromosomes, so I painted only a handful to keep each stage easy to read.",
      "pieces": [
@@ -74,9 +61,6 @@ SERIES = [
           "alt": "a gold DNA double helix unzipping across a blue cloud on a dark background, with colored base pairs and a new strand inside",
           "text": "Inside the nucleus, the DNA double helix unzips, and one strand is copied into a single strand of messenger RNA. That copy carries the gene's instructions out of the nucleus.",
           "see": "Look for the new strand forming inside the open section of the helix."},
-         {"id": "the-ribosome", "title": "The Ribosome", "meta": "Painting in progress", "draw": "ribosome", "art": None,
-          "text": "A ribosome reads the RNA three letters at a time and links one amino acid for each, folding the chain into a working protein.",
-          "see": ""},
          {"id": "golgi-apparatus", "title": "The Golgi Apparatus", "meta": "Packaging", "draw": "mrna", "art": ("golgi-apparatus.webp", 713, 694),
           "alt": "a stack of curved dark and red-orange sacs on a teal background, ringed by round orange vesicles",
           "text": "Newly made proteins pass through the Golgi apparatus, a stack of flattened sacs that sorts and packages them. Small bubbles called vesicles bud off the edges and carry the finished proteins where they need to go.",
@@ -84,7 +68,7 @@ SERIES = [
      ]},
 ]
 N_PIECES = sum(len(s["pieces"]) for s in SERIES)
-WORDS = {3: "three", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve"}
+WORDS = {2: "two", 3: "three", 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve"}
 
 # ---------------------------------------------------------------- helpers
 CSS = None
@@ -150,7 +134,7 @@ def head(title, desc, path="", schema=None, hero=None, sizes=HOME_SIZES, preload
 <meta name="robots" content="noindex,nofollow">
 <link rel="canonical" href="{url}">
 <meta name="author" content="{AUTHOR}">
-<meta name="theme-color" content="#F6F4EF">
+<meta name="theme-color" content="#FFFFFF">
 <meta property="og:site_name" content="{SITE_NAME}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
@@ -268,7 +252,7 @@ def svg(body, vb="0 0 48 48", sw="2.6"):
 # A petri dish holding three dabs of paint in colors from Lily's paintings.
 DISH = ('<rect width="32" height="32" rx="9" fill="#1F3D63"/>'
         '<circle cx="16" cy="16" r="10.5" fill="none" stroke="#EEF2F6" stroke-width="2"/>'
-        '<circle cx="12.6" cy="13.4" r="3.1" fill="#E8C77A"/><circle cx="19.6" cy="12.8" r="2.6" fill="#E58AA6"/>'
+        '<circle cx="12.6" cy="13.4" r="3.1" fill="#E8C77A"/><circle cx="19.6" cy="12.8" r="2.6" fill="#E0533A"/>'
         '<circle cx="16.6" cy="19.8" r="3" fill="#5BB4E0"/>')
 MARK = f'<svg class="mark" viewBox="0 0 32 32" aria-hidden="true">{DISH}</svg>'
 ICON_SCORE = svg('<path d="M6 40h36"/><path d="M10 34V20M20 34V12M30 34v-8M40 34v-4"/><path d="M8 10l12 6 10 10 10 4"/>')
@@ -370,7 +354,7 @@ def piece_html(p):
 # ---------------------------------------------------------------- home
 def index():
     t = f"Science Art Exhibit: Paintings of Cells and Mitosis | {SITE_NAME}"
-    d = ("My paintings of cancer cells, sickle cells, the stages of mitosis and protein synthesis, "
+    d = ("My paintings of the stages of mitosis and the path from gene to protein, "
          "made to help students picture the biology they are asked to learn.")
     schema = [page_schema("WebPage", "", t, d, {"about": "Science art for biology education"})]
     return head(t, d, "", schema, hero="hero-gallery-bench") + nav("index.html") + f"""
@@ -380,7 +364,7 @@ def index():
   <div class="wrap">
     <div class="hero-text">
       <h1>Paintings that let students see the cells biology class talks about</h1>
-      <p class="lede">{SITE_NAME} is my art exhibit of sickle cells, cancer cells, the stages of mitosis and the path from gene to protein. Each painting comes with a short title card I wrote to explain what is on the canvas.</p>
+      <p class="lede">{SITE_NAME} is my art exhibit of the stages of mitosis and the path from gene to protein. Each painting comes with a short title card I wrote to explain what is on the canvas.</p>
       <div class="btn-row center">
         <a href="exhibit.html" class="btn">Walk through the exhibit</a>
       </div>
@@ -424,20 +408,12 @@ def index():
 <section id="about">
   <div class="wrap split">
     <div class="about-text">
-      <h2>A painter who has also worked in a cancer research lab</h2>
-      <p class="name-line">I'm {AUTHOR}, a senior at Episcopal Collegiate School in Little Rock, and I paint the parts of biology that are hardest to imagine.</p>
-      <p>I won Best in Class in Biology as a freshman and in Genetics as a junior, and one of my paintings was shown at the Arkansas Museum of Fine Arts in ninth grade. This project is where those two halves meet: I paint the cells and processes that are hardest to imagine, so more students can see that science is within their reach.</p>
-      <p>This past summer I spent six weeks as a Stephens Summer Science Scholar at the University of Arkansas for Medical Sciences, researching metastatic melanoma and ER stress in a working lab, and presented my research at the UAMS undergraduate research symposium. At school I'm vice president of our National Honor Society chapter, where I built and run the peer tutoring program.</p>
+      <h2>Why I paint the inside of the cell</h2>
+      <p>I'm {AUTHOR}, a senior at Episcopal Collegiate School in Little Rock. When I read the research on why students give up on science, it kept pointing to one moment: biology moves inside the cell, nothing can be seen anymore, and class turns into memorizing words.</p>
+      <p>So I paint that part. My notes for mitosis read like stage directions: stringy and jumbled for interphase, loose and floaty for prophase, bouncy for anaphase, pinched for telophase. The summer before senior year I studied melanoma in a cancer research lab at UAMS, and in ninth grade one of my paintings was shown at the Arkansas Museum of Fine Arts. Petri Palette is where those two halves meet.</p>
+      <div class="btn-row center"><a href="about.html" class="btn ghost">More about me</a></div>
     </div>
     <figure class="frame art about-art" style="aspect-ratio:711/890"><img src="images/art/dna-helix.webp" width="711" height="890" alt="My painting of a gold DNA double helix unzipping across a blue cloud" loading="lazy" decoding="async"></figure>
-  </div>
-  <div class="wrap">
-    <ul class="strip">
-      <li><span class="n">176 hrs</span><span class="t">of cancer research at UAMS the summer before senior year</span></li>
-      <li><span class="n">{N_PIECES}</span><span class="t">paintings across {WORDS[len(SERIES)]} series of cells and cell processes</span></li>
-      <li><span class="n">AMFA</span><span class="t">one of my paintings was shown at the Arkansas Museum of Fine Arts</span></li>
-    </ul>
-    <div class="btn-row center"><a href="about.html" class="btn ghost">More about me</a></div>
   </div>
 </section>
 
@@ -458,7 +434,7 @@ def index():
       </li>
       <li>
         <h3>Take the picture back to class</h3>
-        <p>Next time your biology teacher brings up mitosis, red blood cells or protein synthesis, you will already have an image to hang the terms on.</p>
+        <p>Next time your biology teacher brings up mitosis or protein synthesis, you will already have an image to hang the terms on.</p>
       </li>
     </ol>
     <div class="btn-row center">
@@ -470,15 +446,10 @@ def index():
 <section id="series">
   <div class="wrap">
     <div class="section-head center">
-      <h2>Three series of science paintings</h2>
-      <p>My exhibit follows cells from the shapes that signal disease to the moment one cell becomes two.</p>
+      <h2>Two series of science paintings</h2>
+      <p>My exhibit follows one cell becoming two, then a gene becoming a protein.</p>
     </div>
-    <div class="cards">
-      <a class="card" href="exhibit.html#goggle-series">
-        <div class="icon">{ICON_GOGGLES}</div>
-        <h3>The Goggle Series</h3>
-        <p>Cancer cells, flat cells and sickle cells, three cells whose shape tells a story about health.</p>
-      </a>
+    <div class="cards two">
       <a class="card" href="exhibit.html#mitosis">
         <div class="icon">{ICON_SPLIT}</div>
         <h3>Mitosis</h3>
@@ -518,15 +489,15 @@ def index():
     </div>
   </div>
 </section>
-""" + cta("From sickle cells to a cell splitting in two",
+""" + cta("From one cell splitting in two to a gene becoming a protein",
           f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings, each with a title card that explains the science in a minute or less.",
           "exhibit.html", "Walk through the exhibit", ("artists.html", "Meet the artists who paint cells")) + sources(["nagb", "edsource"]) + "\n</main>\n" + foot()
 
 
 # ---------------------------------------------------------------- exhibit
 def exhibit():
-    t = f"Cell Paintings: Sickle Cells, Cancer Cells and the Stages of Mitosis | {SITE_NAME}"
-    d = ("My science art exhibit: paintings of cancer cells, flat cells and sickle cells, "
+    t = f"Cell Paintings: The Stages of Mitosis and Protein Synthesis | {SITE_NAME}"
+    d = ("My science art exhibit: paintings of "
          "the five stages of mitosis and protein synthesis, each with a plain-language title card.")
     items = [{"@type": "ListItem", "position": i, "name": p["title"], "url": SITE + "exhibit.html#" + p["id"]}
              for i, p in enumerate((p for s in SERIES for p in s["pieces"]), 1)]
@@ -535,7 +506,7 @@ def exhibit():
               crumbs("The Exhibit", "exhibit.html")]
     walls = []
     for s in SERIES:
-        cls = "wall five" if len(s["pieces"]) == 5 else "wall"
+        cls = {5: "wall five", 2: "wall two"}.get(len(s["pieces"]), "wall")
         band = ' band' if s["id"] == "mitosis" else ""
         walls.append(f"""
 <section class="series{band}" id="{s["id"]}">
@@ -555,10 +526,10 @@ def exhibit():
 <header class="page-hero">
   <div class="wrap split">
     <div>
-      <h1>Paintings of cells, mitosis and the path from gene to protein</h1>
-      <p class="lede">My {N_PIECES} paintings, in {WORDS[len(SERIES)]} series. Read each title card beside its painting, the way you would in a museum.</p>
+      <h1>Mitosis and protein synthesis, painted</h1>
+      <p class="lede">My {WORDS[N_PIECES]} paintings, in {WORDS[len(SERIES)]} series. Read each title card beside its painting, the way you would in a museum.</p>
       <div class="btn-row center">
-        <a href="#goggle-series" class="btn">Start with the Goggle Series</a>
+        <a href="#mitosis" class="btn">Start with mitosis</a>
       </div>
     </div>
     {hero_img("hero-bright-gallery", "A visitor standing in a bright gallery, looking at a wall of colorful paintings", PAGE_SIZES)}
@@ -650,13 +621,13 @@ GENRE = [
           "artist": "Odra Noel", "date": "paint on silk",
           "alt": "A pale blue immune cell reaching out to a green cancer cell on a background of swirling peach tissue",
           "text": "Noel trained as a doctor and earned a PhD in basic science before she began painting cells on silk. Here a killer T cell, one of the immune system's defenders, destroys a cancer cell, cast as the knight and the dragon.",
-          "pair": ("exhibit.html#cancer-cells", "Cancer Cells painting"), "credit": "CC BY-NC 4.0, Wellcome Collection",
+          "credit": "CC BY-NC 4.0, Wellcome Collection",
           "source": "St George and the dragon: T lymphocyte killing a cancer cell. Odra Noel. CC BY-NC 4.0. Source: Wellcome Collection."},
          {"id": "noel-blood", "img": ("noel-blood", 1000, 1198), "title": "Blood Cells Through the Microscope",
           "artist": "Odra Noel", "date": "paint on silk",
           "alt": "Round magenta red blood cells drifting past a blue white blood cell on a pale yellow background",
-          "text": "Part of this painting is what a microscope shows and part is the artist's impression of blood cells and the structures around them. The round red cells are the healthy shape that sickle cell disease bends out of form.",
-          "pair": ("exhibit.html#sickle-cells", "Sickle Cells painting"), "credit": "CC BY-NC 4.0, Wellcome Collection",
+          "text": "Part of this painting is what a microscope shows and part is the artist's impression of blood cells and the structures around them.",
+          "credit": "CC BY-NC 4.0, Wellcome Collection",
           "source": "Blood cells through the microscope. Odra Noel. CC BY-NC 4.0. Source: Wellcome Collection."},
          {"id": "magrath-neurones", "img": ("magrath-neurones", 1000, 781), "title": "Neurones Connecting",
           "artist": "Stephen Magrath", "date": "ink on paper",
@@ -688,7 +659,7 @@ MORE_ARTISTS = [
 ]
 
 FITS_HEAD = "Where my paintings fit in"
-FITS_BODY = """      <p>I'm Lily Butler, a high school senior, and Petri Palette is my small addition to this tradition. I paint the cells high school biology asks students to learn: cancer cells and sickle cells, the stages of mitosis, and the path from gene to protein.</p>
+FITS_BODY = """      <p>I'm Lily Butler, a high school senior, and Petri Palette is my small addition to this tradition. I paint the cell processes high school biology asks students to learn: the stages of mitosis and the path from gene to protein.</p>
       <p>Each of my paintings hangs beside a title card that explains the science in plain language. My painting of the Golgi apparatus, shown here, pictures the organelle named for Camillo Golgi, who shared the 1906 Nobel Prize with Cajal.</p>"""
 
 
@@ -809,7 +780,7 @@ def artists():
   </div>
 </section>
 """ + cta(f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings of the cells biology class teaches",
-          "Cancer cells, sickle cells, the stages of mitosis and the path from gene to protein, each with a title card I wrote.",
+          "The stages of mitosis and the path from gene to protein, each with a title card I wrote.",
           "exhibit.html", "Walk through the exhibit", ("research.html", "Read the research")) + f"""
 <section class="refs" id="credits">
   <div class="wrap">
@@ -835,99 +806,58 @@ def portrait(name, alt, cls="photo portrait", eager=False):
             f'sizes="{LILY_SIZES}" width="800" height="1000" alt="{alt}" {load} decoding="async"></figure>')
 
 
-OUTSIDE = [
-    {"icon": ICON_BALL, "title": "Varsity soccer captain",
-     "text": "I play midfield and captain our varsity team this year. We won the state championship my freshman year."},
-    {"icon": ICON_PAW, "title": "Episcopaws",
-     "text": "I helped found our school's dog club and serve as treasurer. We've raised more than $2,000, volunteer with four local organizations and turn old school uniforms into dog toys."},
-    {"icon": ICON_COLUMN, "title": "Latin Club scribe",
-     "text": "I've been in Latin Club since ninth grade and earned Maxima Cum Laude on the National Latin Exam."},
-]
+# Scroll depth for the About hero: elements with data-depth drift by scrollY * depth.
+PARALLAX_JS = """<script>
+(()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+const els=[...document.querySelectorAll('[data-depth]')];let t=0;
+const f=()=>{t=0;const y=Math.min(scrollY,700);for(const e of els)e.style.translate='0 '+(y*e.dataset.depth).toFixed(1)+'px'};
+addEventListener('scroll',()=>{if(!t)t=requestAnimationFrame(f)},{passive:true});})();
+</script>"""
 
 
 def about():
     t = f"About Me: {AUTHOR}, Student Painter and Researcher | {SITE_NAME}"
-    d = ("I'm Lily Butler, a senior at Episcopal Collegiate School in Little Rock. I paint cells, have researched "
-         "melanoma in a cancer lab at UAMS and run a peer tutoring program.")
+    d = ("I'm Lily Butler. Biology class asks students to learn cells they have never seen, so I paint them, "
+         "one stage at a time, with a title card that explains each one.")
     schema = [page_schema("AboutPage", "about.html", t, d, {"mainEntity": {"@id": SITE + "#lily"}}),
               crumbs("About", "about.html")]
-    pre = ('<link rel="preload" as="image" type="image/webp" href="images/lily-column-800.webp" '
-           'imagesrcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" '
-           f'imagesizes="{LILY_SIZES}" fetchpriority="high">\n')
-    outside = "\n".join(f"""      <div class="card">
-        <div class="icon">{c["icon"]}</div>
-        <h3>{c["title"]}</h3>
-        <p>{c["text"]}</p>
-      </div>""" for c in OUTSIDE)
+    pre = ('<link rel="preload" as="image" type="image/webp" href="images/art/dna-helix.webp" '
+           'imagesrcset="images/art/dna-helix-520.webp 520w, images/art/dna-helix.webp 711w" '
+           'imagesizes="(max-width: 860px) 72vw, 470px" fetchpriority="high">\n')
     return head(t, d, "about.html", schema, preload_html=pre) + nav("about.html") + f"""
 <main id="main">
 
-<header class="page-hero">
-  <div class="wrap split">
-    <div>
-      <h1>I'm Lily Butler, and I paint cells</h1>
-      <p class="lede">I'm a senior at Episcopal Collegiate School in Little Rock. I've worked in a cancer research lab, shown a painting at the Arkansas Museum of Fine Arts and built a peer tutoring program, and Petri Palette brings all three together.</p>
+<header class="studio-hero">
+  <div class="wrap studio">
+    <div class="studio-text">
+      <h1>I paint the cells biology class asks students to memorize</h1>
+      <p class="lede">I'm Lily Butler, a senior in Little Rock. Biology class asks students to learn cells they have never seen, so I paint them one stage at a time, and the next student who meets mitosis already has a picture of it.</p>
       <div class="btn-row center">
-        <a href="exhibit.html" class="btn">Walk through my exhibit</a>
+        <a href="exhibit.html" class="btn light">Walk through my exhibit</a>
       </div>
     </div>
-    {portrait("lily-column", "Lily Butler in a white top, leaning against a white column outside a brick building and smiling", "hero-photo portrait", eager=True)}
-  </div>
-  <div class="wrap">
-    <ul class="strip">
-      <li><span class="n">176 hrs</span><span class="t">of cancer research at UAMS the summer before senior year</span></li>
-      <li><span class="n">AMFA</span><span class="t">one of my paintings was shown at the Arkansas Museum of Fine Arts in ninth grade</span></li>
-      <li><span class="n">2</span><span class="t">Best in Class awards in science: Biology in ninth grade, Genetics in eleventh</span></li>
-    </ul>
+    <div class="studio-art">
+      <figure class="canvas" data-depth="0.05"><img src="images/art/dna-helix.webp" srcset="images/art/dna-helix-520.webp 520w, images/art/dna-helix.webp 711w" sizes="(max-width: 860px) 72vw, 470px" width="711" height="890" alt="My painting of a gold DNA double helix unzipping across a blue cloud" fetchpriority="high" decoding="async"></figure>
+      <figure class="studio-portrait" data-depth="-0.06"><img src="images/lily-column-480.webp" srcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w" sizes="(max-width: 860px) 44vw, 230px" width="480" height="600" alt="Lily Butler in a white top, leaning against a white column and smiling" decoding="async"></figure>
+      <p class="studio-card"><strong>DNA to RNA</strong><span>From my Protein Transcription series</span></p>
+    </div>
   </div>
 </header>
+{PARALLAX_JS}
 
-<section id="research" class="band">
-  <div class="wrap split">
-    <div>
-      <h2>Six weeks in a cancer research lab</h2>
-      <p>The summer before my senior year, I was a Jackson T. Stephens Summer Science Scholar at the University of Arkansas for Medical Sciences. I spent six weeks of full days in a lab studying metastatic melanoma and ER stress, about 176 hours in all, and ran my own research project there.</p>
-      <p>ER stress happens when the endoplasmic reticulum, the part of the cell that folds new proteins, is overloaded. At the end of the program I presented my research to judges at the UAMS undergraduate research symposium.</p>
-    </div>
-    <figure class="frame art about-art" style="aspect-ratio:713/694"><img src="images/art/golgi-apparatus.webp" width="713" height="694" alt="My painting of the Golgi apparatus: stacked dark and red-orange sacs on a teal background, ringed by round vesicles" loading="lazy" decoding="async"></figure>
-  </div>
-</section>
-
-<section id="painting">
+<section id="story">
   <div class="wrap split flip">
-    <figure class="frame art about-art" style="aspect-ratio:711/890"><img src="images/art/dna-helix.webp" width="711" height="890" alt="My painting of a gold DNA double helix unzipping across a blue cloud" loading="lazy" decoding="async"></figure>
-    <div>
-      <h2>A painting at the Arkansas Museum of Fine Arts</h2>
-      <p>In ninth grade, one of my paintings was shown at the Arkansas Museum of Fine Arts. That same year I won Best in Class in Biology, and in eleventh grade I won it in Genetics.</p>
-      <p>Petri Palette puts those two interests on the same canvas. I paint the cells and processes that are hardest to imagine, so more students can see that science is within their reach.</p>
-    </div>
-  </div>
-</section>
-
-<section id="tutoring" class="band">
-  <div class="wrap split">
-    <div>
-      <h2>Helping classmates learn</h2>
-      <p>I'm vice president of our National Honor Society chapter, where I built and run the peer tutoring program.</p>
-      <p>I also tutor at Episcopal's Writing Center. As its director of online operations, I built the website and scheduling system that more than 450 students use to book appointments.</p>
-    </div>
     {portrait("lily-wall", "Lily Butler in a blue floral dress, sitting on a stone wall in a park and smiling")}
-  </div>
-</section>
-
-<section id="outside">
-  <div class="wrap">
-    <div class="section-head center">
-      <h2>Outside the lab and the studio</h2>
-    </div>
-    <div class="cards">
-{outside}
+    <div>
+      <h2>How Petri Palette started</h2>
+      <p>Before I painted anything, I read the research on why students give up on science. It kept pointing to the same moment. Biology is easy to like while it is about hearts, frogs and weather. Then it moves inside the cell, into chromosomes and proteins nobody can see, and class turns into memorizing words.</p>
+      <p>The summer before my senior year, I spent six weeks in a cancer research lab at UAMS, studying melanoma and the part of the cell that folds new proteins. When I plan a painting now, I write down how it should feel: interphase is stringy and jumbled, prophase is loose and floaty, anaphase is bouncy, telophase is pinched. Then I write a title card short enough to read in a minute.</p>
     </div>
   </div>
 </section>
-""" + cta("Start with the Goggle Series",
-          "Cancer cells, flat cells and sickle cells open my exhibit, followed by mitosis and the path from gene to protein.",
-          "exhibit.html#goggle-series", "Walk through my exhibit", ("artists.html", "Meet the artists who paint cells")) + "\n</main>\n" + foot()
+""" + cta(f"{WORDS[N_PIECES].capitalize()} paintings, one title card each",
+          "The stages of mitosis and the path from gene to protein.",
+          "exhibit.html", "Walk through my exhibit", ("artists.html", "Meet the artists who paint cells")) + "\n</main>\n" + foot()
 
 
 # ---------------------------------------------------------------- research
@@ -945,7 +875,7 @@ def bars(rows):
 
 
 def research():
-    t = f"Why Students Lose Interest in Science, and How Art Can Help | {SITE_NAME}"
+    t = f"How Art Can Keep Students Interested in Science | {SITE_NAME}"
     d = ("What the 2024 Nation's Report Card says about eighth grade science scores and enjoyment, why interest drops as "
          "science turns abstract, and what studies show about learning science through art and drawing.")
     schema = [page_schema("Article", "research.html", t, d, {"about": "Student engagement in science education"}),
@@ -956,7 +886,7 @@ def research():
 <header class="page-hero">
   <div class="wrap split">
     <div>
-      <h1>Why students lose interest in science, and how art can help</h1>
+      <h1>How art can keep students interested in science</h1>
       <p class="lede">Before painting a single cell, I looked at what national test data and education research say about students and science. Here is what I found.</p>
     </div>
     {hero_img("hero-boy-painting", "A boy in a dark hoodie standing close to a large painting in a museum", PAGE_SIZES)}
@@ -1002,7 +932,7 @@ def research():
       <p class="cite-line">Source: EdSource (Emma Gallegos), reporting 2024 NAEP survey results, September 9, 2025.</p>
     </figure>
     <div>
-      <h2>Fewer students enjoy science, and fewer do hands-on science</h2>
+      <h2>Fewer eighth graders enjoy science than in 2019</h2>
       <p>Scores were only half of the story. The same 2024 survey showed students losing interest: 10 points fewer said they enjoy science activities, and 8 points fewer said they are interested in what they learn in class.</p>
       <p>Fewer students also reported often doing the work scientists do. Using evidence from experiments to explain why something happens fell 5 percentage points from 2019, and using information to disagree about a scientific idea fell 4 points.</p>
     </div>

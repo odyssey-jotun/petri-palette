@@ -2,25 +2,31 @@
 @font-face{ font-family:'Public Sans'; font-style:normal; font-weight:400 700; font-display:swap; src:url(fonts/public-sans.woff2) format('woff2'); }
 /* ------------------------------------------------------------------
    Petri Palette shared styles.
-   Palette from a stained microscope slide on a gallery wall:
-   hematoxylin blue for nuclei, eosin rose for cytoplasm, off-white wall.
+   Science sets the ground: clinical white, glass-slide blue, near-black
+   ink and hairline rules. Art supplies the color, every hue taken from
+   Lily's paintings: Prussian blue (the DNA canvas, also a histology
+   stain), gilt gold (the helix), vermilion (the Golgi), cerulean.
    ------------------------------------------------------------------ */
 :root{
-  --bg:          #F6F4EF;  /* gallery wall */
-  --bg-alt:      #E9EDF1;  /* pale slide blue */
+  --bg:          #FFFFFF;  /* lab white */
+  --bg-alt:      #EEF3F8;  /* glass slide */
   --card:        #FFFFFF;
-  --ink:         #18202B;
-  --ink-soft:    #48525F;
-  --primary:     #1F3D63;  /* hematoxylin blue */
-  --primary-dk:  #132840;
-  --rose:        #B23A5E;  /* eosin */
-  --rose-lt:     #F4DCE3;
-  --rose-on-dark:#F2B3C5;
+  --ink:         #0C1524;
+  --ink-soft:    #435064;
+  --primary:     #0F3A63;  /* Prussian blue */
+  --primary-dk:  #0A2440;  /* Prussian blue at night */
+  --red:         #B8392A;  /* vermilion, from the Golgi painting */
+  --red-lt:      #F9E4E0;
+  --red-on-dark: #F4A291;
+  --gold:        #C9A23F;  /* gilt, from the DNA helix */
+  --gold-lt:     #F5ECD4;
+  --gold-dk:     #765A10;
+  --gold-on-dark:#E8C77A;
   --on-dark:     #EEF2F6;
-  --on-dark-soft:#BCC8D6;
-  --line:        rgba(24,32,43,0.14);
-  --c2019:       #3F78B0;
-  --c2024:       #B23A5E;
+  --on-dark-soft:#B9C6D6;
+  --line:        rgba(12,21,36,0.12);
+  --c2019:       #2A6FA6;  /* cerulean, from the DNA painting's cloud */
+  --c2024:       #B8392A;
   --radius: 18px;
   --radius-lg: 28px;
   --wrap: 1080px;
@@ -73,7 +79,7 @@ img{ max-width: 100%; height: auto; }
 }
 .skip:focus{ left: 16px; }
 a:focus-visible, button:focus-visible{
-  outline: 3px solid var(--rose);
+  outline: 3px solid var(--red);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -81,7 +87,7 @@ a:focus-visible, button:focus-visible{
 /* ---------------- nav ---------------- */
 nav.site{
   position: sticky; top: 0; z-index: 20;
-  background: rgba(246,244,239,0.95);
+  background: rgba(255,255,255,0.94);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
@@ -97,7 +103,7 @@ nav.site .wrap{
   text-decoration: none; white-space: nowrap; min-height: 44px;
 }
 .wordmark .mark{ width: 30px; height: 30px; flex: none; }
-.wordmark .last{ color: var(--rose); }
+.wordmark .last{ color: var(--red); }
 nav.site ul{
   list-style:none; display:flex; align-items:center;
   gap: 4px; margin:0; padding:0;
@@ -110,7 +116,7 @@ nav.site ul a{
   transition: color 0.15s ease;
 }
 nav.site ul a:hover{ color: var(--primary); }
-nav.site ul a[aria-current="page"]{ color: var(--ink); box-shadow: inset 0 -3px 0 var(--rose); }
+nav.site ul a[aria-current="page"]{ color: var(--ink); box-shadow: inset 0 -3px 0 var(--red); }
 
 /* ---------------- buttons ---------------- */
 .btn{
@@ -125,7 +131,7 @@ nav.site ul a[aria-current="page"]{ color: var(--ink); box-shadow: inset 0 -3px 
   border: 2px solid var(--primary);
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
-.btn:hover{ background: var(--rose); border-color: var(--rose); }
+.btn:hover{ background: var(--gold-on-dark); border-color: var(--gold-on-dark); color: var(--primary-dk); }
 .btn.ghost{ background: transparent; color: var(--primary); }
 .btn.ghost:hover{ background: var(--primary); color: #FFFFFF; border-color: var(--primary); }
 .btn-row{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:center; margin-top: 30px; }
@@ -180,10 +186,10 @@ h2{ font-size: clamp(1.8rem, 3.3vw, 2.45rem); }
   font-weight: 700;
   font-size: clamp(2.4rem, 4.2vw, 3rem);
   line-height: 1; letter-spacing: -0.02em;
-  color: var(--rose); margin: 0 0 10px;
+  color: var(--red); margin: 0 0 10px;
 }
 .card .of{ font-size: 0.9rem; font-weight: 700; color: var(--ink-soft); margin: 12px 0 0; border-top: 1px solid var(--line); padding-top: 12px; }
-.band .card .icon{ background: var(--rose-lt); color: var(--rose); }
+.band .card .icon{ background: var(--gold-lt); color: var(--gold-dk); }
 
 .punch{
   font-family:'Newsreader', Georgia, serif;
@@ -246,9 +252,9 @@ h2{ font-size: clamp(1.8rem, 3.3vw, 2.45rem); }
   padding: 16px 18px;
   color: var(--on-dark); font-size: 1.02rem;
 }
-.outcomes svg{ width: 24px; height: 24px; margin-top: 2px; color: var(--rose-on-dark); }
-.stake.good .outcomes svg{ color: #A9D3F5; }
-.stake.good .outcomes li{ background: rgba(169,211,245,0.1); border-color: rgba(169,211,245,0.32); }
+.outcomes svg{ width: 24px; height: 24px; margin-top: 2px; color: var(--red-on-dark); }
+.stake.good .outcomes svg{ color: var(--gold-on-dark); }
+.stake.good .outcomes li{ background: rgba(232,199,122,0.08); border-color: rgba(232,199,122,0.34); }
 
 /* ---------------- closing CTA ---------------- */
 .closing{ text-align:center; }
@@ -262,15 +268,16 @@ h2{ font-size: clamp(1.8rem, 3.3vw, 2.45rem); }
 .series .section-head{ margin-bottom: 30px; }
 .wall{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 34px 26px; align-items: start; }
 .wall.five{ grid-template-columns: repeat(6, 1fr); }
+.wall.two{ grid-template-columns: repeat(2, minmax(0, 340px)); justify-content: center; }
 .wall.five .piece{ grid-column: span 2; }
 .wall.five .piece:nth-child(4){ grid-column: 2 / span 2; }
 .piece{ display:grid; gap: 18px; justify-items: center; }
 .frame{
   width: 100%; aspect-ratio: 4/5; margin: 0;
-  background: #FBFAF7;
-  border: 12px solid #2A2A2E;
+  background: #FFFFFF;
+  border: 12px solid #15181E;
   border-radius: 6px;
-  box-shadow: 0 18px 34px -22px rgba(19,40,64,0.7), inset 0 0 0 14px #F1EEE6;
+  box-shadow: 0 18px 34px -22px rgba(19,40,64,0.7), inset 0 0 0 14px #F4F7FA;
   display:flex; flex-direction: column; align-items:center; justify-content:center; gap: 14px;
   color: var(--primary); padding: 22px;
 }
@@ -330,14 +337,13 @@ footer .wrap{ display:flex; justify-content:space-between; align-items:center; f
 footer p{ margin: 0; max-width: 40em; }
 footer ul{ list-style:none; display:flex; flex-wrap:wrap; gap: 0 18px; margin:0; padding:0; font-weight: 600; }
 footer ul a{ display:inline-flex; align-items:center; min-height: 44px; color: var(--on-dark); text-decoration: none; }
-footer ul a:hover{ color: var(--rose-on-dark); }
 
 /* ---------------- responsive ---------------- */
 @media (max-width: 900px){
   nav.site ul{ order: 3; width: 100%; justify-content: space-between; gap: 0; border-top: 1px solid var(--line); }
   nav.site ul a{ padding: 0 4px; font-size: 0.95rem; }
   html{ scroll-padding-top: 130px; }
-  .wall, .wall.five{ grid-template-columns: 1fr 1fr; }
+  .wall, .wall.five, .wall.two{ grid-template-columns: 1fr 1fr; }
   .wall.five .piece, .wall.five .piece:nth-child(4){ grid-column: auto; }
 }
 @media (min-width: 560px) and (max-width: 900px){
@@ -361,20 +367,20 @@ footer ul a:hover{ color: var(--rose-on-dark); }
   .strip{ grid-template-columns: 1fr; }
   .strip li{ border-left: 0; border-top: 1px solid var(--line); }
   .strip li:first-child{ border-top: 0; }
-  .wall, .wall.five{ grid-template-columns: 1fr; gap: 40px; }
+  .wall, .wall.five, .wall.two{ grid-template-columns: 1fr; gap: 40px; }
   .frame{ max-width: 340px; }
   .frame:not(.art){ aspect-ratio: 1/1; }
   .chart{ padding: 22px 18px; }
   .wordmark{ font-size: 1.2rem; }
 }
 a.card{ text-decoration: none; color: inherit; transition: border-color 0.15s ease; }
-a.card:hover{ border-color: var(--rose); }
+a.card:hover{ border-color: var(--red); }
 a.card:hover h3{ color: var(--primary); }
 .about-art{ max-width: 400px; justify-self: center; }
 
 /* ---------------- artists page ---------------- */
 .label .credit{ font-size: 0.82rem; font-style: italic; color: var(--ink-soft); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
-.card .where{ font-size: 0.92rem; font-weight: 700; color: var(--rose); margin: 0 0 10px; }
+.card .where{ font-size: 0.92rem; font-weight: 700; color: var(--red); margin: 0 0 10px; }
 
 /* ---------------- about page portraits ---------------- */
 .portrait{ aspect-ratio: 4/5; max-width: 440px; width: 100%; justify-self: center; }
@@ -384,3 +390,57 @@ a.card:hover h3{ color: var(--primary); }
   .page-hero .hero-photo.portrait{ aspect-ratio: 1/1; max-width: 400px; margin: 0 auto; }
   .split > .photo.portrait{ order: -1; max-width: 400px; margin: 0 auto; }
 }
+
+/* ---------------- about: studio hero ----------------
+   Lily's painting hangs large on a dark gallery wall (the navy of her DNA
+   painting), with her portrait pinned over its lower corner and a museum
+   title card beside it. Two motions only: the portrait rises in once, and
+   on scroll the portrait drifts a little faster than the painting. */
+.studio-hero{ background: var(--primary-dk); color: var(--on-dark); padding: 64px 0 72px; overflow: hidden; }
+.studio{ display:grid; grid-template-columns: 0.92fr 1.08fr; gap: 48px; align-items:center; }
+.studio-hero h1{ color: #FFFFFF; font-size: clamp(2.2rem, 4.6vw, 3.4rem); }
+.studio-hero .lede{ color: var(--on-dark-soft); font-size: 1.14rem; margin-top: 10px; max-width: 32em; }
+.studio-art{ position: relative; padding: 0 0 64px 72px; }
+.canvas{ margin: 0 0 0 auto; width: min(100%, 470px); aspect-ratio: 711/890; border-radius: 4px; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(238,242,246,0.12), 0 36px 70px -24px rgba(0,0,0,0.85); }
+.canvas img, .studio-portrait img{ display:block; width:100%; height:100%; object-fit: cover; }
+.studio-portrait{ position:absolute; left: 0; bottom: 0; margin: 0; width: 46%; max-width: 236px; aspect-ratio: 4/5;
+  border-radius: var(--radius); overflow: hidden; border: 6px solid #FFFFFF;
+  box-shadow: 0 26px 44px -18px rgba(0,0,0,0.8); }
+.studio-portrait img{ object-position: center 25%; }
+.studio-card{ position:absolute; right: 0; bottom: 4px; margin: 0; background: #FFFFFF; color: var(--ink);
+  border-radius: 4px; padding: 10px 14px; font-size: 0.86rem; line-height: 1.35; max-width: 220px;
+  box-shadow: 0 10px 22px -12px rgba(0,0,0,0.7); }
+.studio-card strong{ display:block; font-family:'Newsreader', Georgia, serif; font-size: 1.05rem; font-weight: 600; }
+.studio-card span{ color: var(--ink-soft); }
+.studio-hero .strip{ margin-top: 56px; }
+.btn.light{ background: #FFFFFF; border-color: #FFFFFF; color: var(--primary-dk); }
+.btn.light:hover{ background: #E8C77A; border-color: #E8C77A; color: var(--primary-dk); }
+@media (prefers-reduced-motion: no-preference){
+  .studio-portrait{ animation: studio-rise 0.7s cubic-bezier(.2,.7,.2,1) 0.15s both; }
+  .studio-card{ animation: studio-fade 0.6s ease 0.45s both; }
+}
+@keyframes studio-rise{ from{ opacity: 0; transform: translateY(28px); } to{ opacity: 1; transform: none; } }
+@keyframes studio-fade{ from{ opacity: 0; } to{ opacity: 1; } }
+@media (max-width: 860px){
+  .studio{ grid-template-columns: 1fr; gap: 34px; }
+  .studio-art{ order: -1; padding: 0 0 52px 34px; }
+  .canvas{ width: 80%; }
+  .studio-portrait{ width: 42%; border-width: 4px; }
+  .studio-card{ max-width: 170px; padding: 8px 11px; font-size: 0.8rem; }
+  .studio-hero{ padding: 32px 0 56px; }
+  .studio-hero .strip{ margin-top: 40px; }
+}
+
+/* A thin gilt slip inside every picture frame. */
+.frame{ position: relative; }
+.frame::after{ content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 2px var(--gold); pointer-events: none; }
+.canvas{ position: relative; }
+.canvas::after{ content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 2px var(--gold); pointer-events: none; }
+/* Dark bands carry the gold. */
+.after .stake h3, .studio-card strong{ color: inherit; }
+footer ul a:hover{ color: var(--gold-on-dark); }
+
+/* Two cards, centered */
+.cards.two{ grid-template-columns: repeat(2, minmax(0, 360px)); justify-content: center; }
+@media (max-width: 860px){ .cards.two{ grid-template-columns: 1fr; } }
