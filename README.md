@@ -1,6 +1,8 @@
 # Petri Palette
 
-Passion-project site for Lily Butler: an art exhibit of cells and cell processes (the Goggle Series, Mitosis, Protein Transcription) with plain-language title cards, a digital exhibit of the wider science art genre, and the research on why students lose interest in science. Built from Lily's doc "Research Questions to Answer" (research notes and exhibit plan) and her activities list. The name was chosen 2026-10-23; the repo was `science-you-can-see` before that.
+Lily Butler's art and science site: an exhibit of her paintings of cells and cell processes (the Goggle Series, Mitosis, Protein Transcription) with plain-language title cards, a digital exhibit of the wider science art genre, and the research on why students lose interest in science. The repo was `science-you-can-see` before 2026-10-23.
+
+Every page is written in the first person ("I"). The name appears only in the "I'm Lily Butler" introductions.
 
 The StoryBrand framework the copy follows is in `BRANDSCRIPT.md`. Change the script first, then the copy.
 
@@ -8,15 +10,15 @@ The StoryBrand framework the copy follows is in `BRANDSCRIPT.md`. Change the scr
 
 https://odyssey-jotun.github.io/petri-palette/
 
-The repository is public and GitHub Pages serves `main` at root. Pushing to `main` redeploys. Every page is `noindex,nofollow` and `robots.txt` disallows all until Lily approves the copy and her paintings are in. To open it to search, change the robots meta in `head()` to `index,follow,max-image-preview:large` and the robots.txt text in `build.py` to `Allow: /` plus the sitemap line.
+The repository is public and GitHub Pages serves `main` at root. Pushing to `main` redeploys. Every page is `noindex,nofollow` and `robots.txt` disallows all until the paintings are in and the site is ready to launch. To open it to search, change the robots meta in `head()` to `index,follow,max-image-preview:large` and the robots.txt text in `build.py` to `Allow: /` plus the sitemap line.
 
 ## Pages
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | StoryBrand home: people-photo hero, the problem (three icon cards with NAEP numbers: external, internal, philosophical), Lily as guide in her first person, a three-step plan, the three series, what is at stake, closing call to action |
+| `index.html` | StoryBrand home: people-photo hero, the problem (three icon cards with NAEP numbers: external, internal, philosophical), the guide section in first person, a three-step plan, the three series, what is at stake, closing call to action |
 | `exhibit.html` | The exhibit: every painting in a frame with a museum-style title card. Frames show a line drawing until the painting is scanned |
-| `artists.html` | The genre exhibit: three rooms of openly licensed science art (Hooke, Flemming, Cajal; Goodsell, Harris; Odra Noel, Magrath), agar art, six more artists described in words only, and where Petri Palette fits in. Pieces pair with Lily's paintings where the subject matches |
+| `artists.html` | The genre exhibit: three rooms of openly licensed science art (Hooke, Flemming, Cajal; Goodsell, Harris; Odra Noel, Magrath), agar art, six more artists described in words only, and where Petri Palette fits in. Pieces pair with the matching painting in the exhibit |
 | `research.html` | NAEP 2024 science results, the 2019 vs 2024 enjoyment chart, why interest drops as science turns abstract, math and screen-time context, and studies on learning science through art |
 
 ## Editing
@@ -36,17 +38,10 @@ Styles live in `styles.css` and are minified and inlined by the build.
 ## Rules this site follows
 
 - Every figure is checked against its source and cited in plain text. The site has zero external links.
-- Left off on purpose: Lily's doc cites a PubMed Central link (PMC6559120) for "low-income schools offer fewer advanced STEM courses". That link is an unrelated paper about postdoctoral women, so the claim is not on the site. Her screen-time link pointed to an NIH preprint; the PISA figures are cited to the OECD instead.
+- Left off on purpose: the claim that low-income schools offer fewer advanced STEM courses, because the PubMed Central paper first found for it (PMC6559120) is an unrelated study. The PISA screen-time figures are cited to the OECD rather than an NIH preprint.
 - Hero photos show people. Photos have rounded corners and a light color pass.
 - No em dashes, no small uppercase labels above headings, no bold phrases inside sentences.
 
-## Open questions for Lily
-
-- The gallery where the paintings will hang ("Organized gallery showing at ___").
-- What "Goggle Series" means visually. The copy does not guess.
-- Titles for the Protein Transcription paintings. Two are in (cropped from a screenshot of the shared Apple Note "Scanned...", 2026-10-22): the DNA helix (titled "DNA to RNA" by us) and the stacked-sacs painting, identified by us as the Golgi apparatus. The Ribosome card is a placeholder. Strictly, transcription only makes the RNA; translation builds the protein, so the series intro explains both. Higher-resolution scans would replace the screenshot crops in `images/art/` (originals in `images/art/originals/`, gitignored).
-- "Flat cells" is written up as squamous cells. Confirm that is what she means.
-- Her first-person section was drafted from her activities list and needs her approval, plus a real photo of her. Her section shows her DNA painting for now.
 
 ## Photos
 
@@ -57,13 +52,13 @@ All from Unsplash under the Unsplash licence, cropped and color-graded.
 | `hero-gallery-bench`, `og.jpg` | Home hero | `ABdRtZKWJfE` | Eri Pançi |
 | `hero-bright-gallery` | Exhibit hero | `qxvOmDuQDsg` | Caroline Badran |
 | `hero-boy-painting` | Research hero | `hbZOr0FfNNE` | Egor Myznik |
-| `microscope` | Not used (Lily's section now shows her DNA painting) | `6q5QG8iIgRo` | Trust Katsande |
+| `microscope` | Not used (the about section shows the DNA painting) | `6q5QG8iIgRo` | Trust Katsande |
 | `watercolor` | Research, art section | `YKLkzMuEA8Q` | Madalyn Cox |
 | `hero-gallery-visitor` | Artists hero | `AlLKJ292jOQ` | Pauline Loroy |
 
 ## Artwork on the Artists page
 
-Only public domain or openly licensed images are shown. Credits are on the page in plain text. Artists whose work is all rights reserved (Klari Reis, Michele Banks, Greg Dunn, Hunter Cole, Luke Jerram, Rogan Brown) are described in words until Lily has their permission to show an image.
+Only public domain or openly licensed images are shown. Credits are on the page in plain text. Artists whose work is all rights reserved (Klari Reis, Michele Banks, Greg Dunn, Hunter Cole, Luke Jerram, Rogan Brown) are described in words until there is permission to show an image.
 
 | File | Work | License | Source page (not linked from the site) |
 | --- | --- | --- | --- |

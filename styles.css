@@ -375,3 +375,12 @@ a.card:hover h3{ color: var(--primary); }
 /* ---------------- artists page ---------------- */
 .label .credit{ font-size: 0.82rem; font-style: italic; color: var(--ink-soft); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
 .card .where{ font-size: 0.92rem; font-weight: 700; color: var(--rose); margin: 0 0 10px; }
+
+/* ---------------- about page portraits ---------------- */
+.portrait{ aspect-ratio: 4/5; max-width: 440px; width: 100%; justify-self: center; }
+.photo.portrait, .hero-photo.portrait{ aspect-ratio: 4/5; }
+.portrait img{ object-position: center 30%; }
+@media (max-width: 860px){
+  .page-hero .hero-photo.portrait{ aspect-ratio: 1/1; max-width: 400px; margin: 0 auto; }
+  .split > .photo.portrait{ order: -1; max-width: 400px; margin: 0 auto; }
+}

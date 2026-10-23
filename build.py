@@ -49,7 +49,7 @@ SERIES = [
           "see": "Look for the crescent cells beside the round ones."},
      ]},
     {"id": "mitosis", "name": "Mitosis",
-     "intro": "One cell becoming two, painted as five stages. Human cells carry 46 chromosomes, so the paintings show only a handful to keep each stage easy to read.",
+     "intro": "One cell becoming two, painted as five stages. Human cells carry 46 chromosomes, so I painted only a handful to keep each stage easy to read.",
      "pieces": [
          {"id": "interphase", "title": "Interphase", "meta": "Before mitosis", "draw": "interphase", "art": None,
           "text": "The cell grows and copies its DNA. The chromosomes are loose, stringy and tangled together, so no single one stands out yet.",
@@ -128,7 +128,7 @@ PERSON = {
 }
 
 
-def head(title, desc, path="", schema=None, hero=None, sizes=HOME_SIZES):
+def head(title, desc, path="", schema=None, hero=None, sizes=HOME_SIZES, preload_html=""):
     url = SITE + path
     graph = [{"@type": "WebSite", "@id": SITE + "#site", "url": SITE, "name": SITE_NAME,
               "description": "Paintings of cells, mitosis and protein synthesis that make biology easier to picture, with the research behind the project.",
@@ -138,6 +138,7 @@ def head(title, desc, path="", schema=None, hero=None, sizes=HOME_SIZES):
     if hero:
         preload = (f'<link rel="preload" as="image" type="image/webp" href="images/{hero}-960.webp" '
                    f'imagesrcset="{srcset(hero, HERO_W)}" imagesizes="{sizes}" fetchpriority="high">\n')
+    preload = preload or preload_html
     ld = json.dumps({"@context": "https://schema.org", "@graph": graph}, separators=(",", ":"))
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -187,7 +188,7 @@ def crumbs(name, path):
         {"@type": "ListItem", "position": 2, "name": name, "item": SITE + path}]}
 
 
-PAGES = [("index.html", "Home"), ("exhibit.html", "The Exhibit"), ("artists.html", "The Artists"), ("research.html", "The Research")]
+PAGES = [("index.html", "Home"), ("exhibit.html", "Exhibit"), ("artists.html", "Artists"), ("research.html", "Research"), ("about.html", "About")]
 
 
 def wordmark():
@@ -218,7 +219,7 @@ def foot():
     return f"""
 <footer>
   <div class="wrap">
-    <p>{SITE_NAME}, an art and science project by {AUTHOR}. Research figures come from the Nation's Report Card, the OECD and peer-reviewed studies, cited on each page.</p>
+    <p>I'm {AUTHOR}, and {SITE_NAME} is my art and science project. My research figures come from the Nation's Report Card, the OECD and peer-reviewed studies, cited on each page.</p>
     <ul>
 {lis}
     </ul>
@@ -279,6 +280,9 @@ ICON_HELIX = svg('<path d="M14 6c0 12 20 12 20 24S14 42 14 42"/><path d="M34 6c0
 ICON_BRUSH = svg('<path d="M30 8l10 10-16 16-10-10z"/><path d="M14 24c-6 0-8 4-8 8 0 3-1 6-2 8 6 0 14-1 16-7"/><path d="M26 12l10 10"/>')
 ICON_SCOPE = svg('<path d="M20 6l8 4-8 16-8-4z"/><path d="M22 26c6 2 10 7 10 12"/><path d="M8 42h32"/><path d="M14 36h20"/><circle cx="34" cy="20" r="3"/>')
 ICON_DISH = svg('<ellipse cx="24" cy="28" rx="19" ry="9"/><path d="M5 28v4c0 5 8.5 9 19 9s19-4 19-9v-4"/><circle cx="17" cy="27" r="2.6"/><circle cx="27" cy="25" r="2"/><circle cx="30" cy="30" r="2.4"/>')
+ICON_BALL = svg('<circle cx="24" cy="24" r="18"/><path d="M24 15l7 5-3 8h-8l-3-8z"/><path d="M24 6v9M31 20l9-4M28 28l6 8M20 28l-6 8M17 20l-9-4"/>')
+ICON_PAW = svg('<ellipse cx="24" cy="32" rx="8" ry="7"/><circle cx="12.5" cy="21" r="3.6"/><circle cx="19.5" cy="12.5" r="3.6"/><circle cx="28.5" cy="12.5" r="3.6"/><circle cx="35.5" cy="21" r="3.6"/>')
+ICON_COLUMN = svg('<path d="M9 13h30M12 13l12-7 12 7"/><path d="M13 17h22M16 17v19M24 17v19M32 17v19"/><path d="M12 36h24M9 41h30"/>')
 CHECK = svg('<path d="M10 25l9 9 19-20"/>', sw="3.4")
 CROSS = svg('<path d="M14 14l20 20M34 14L14 34"/>', sw="3.4")
 
@@ -349,7 +353,7 @@ def piece_html(p):
     if p["art"]:
         src, w, h = p["art"]
         frame = (f'<figure class="frame art" style="aspect-ratio:{w}/{h}"><img src="images/art/{src}" width="{w}" height="{h}" '
-                 f'alt="{AUTHOR}\'s painting: {p["alt"]}" loading="lazy" decoding="async"></figure>')
+                 f'alt="My painting: {p["alt"]}" loading="lazy" decoding="async"></figure>')
     else:
         frame = f'<figure class="frame">{draw(p["draw"])}<figcaption class="soon">Painting coming soon</figcaption></figure>'
     see = f'\n          <p class="see">{p["see"]}</p>' if p["see"] else ""
@@ -357,7 +361,7 @@ def piece_html(p):
         {frame}
         <div class="label">
           <h3>{p["title"]}</h3>
-          <p class="meta">{p["meta"]} &middot; {AUTHOR}</p>
+          <p class="meta">{p["meta"]}</p>
           <p>{p["text"]}</p>{see}
         </div>
       </article>"""
@@ -366,8 +370,8 @@ def piece_html(p):
 # ---------------------------------------------------------------- home
 def index():
     t = f"Science Art Exhibit: Paintings of Cells and Mitosis | {SITE_NAME}"
-    d = ("Paintings of cancer cells, sickle cells, the stages of mitosis and protein synthesis by student artist "
-         f"{AUTHOR}, made to help students picture the biology they are asked to learn.")
+    d = ("My paintings of cancer cells, sickle cells, the stages of mitosis and protein synthesis, "
+         "made to help students picture the biology they are asked to learn.")
     schema = [page_schema("WebPage", "", t, d, {"about": "Science art for biology education"})]
     return head(t, d, "", schema, hero="hero-gallery-bench") + nav("index.html") + f"""
 <main id="main">
@@ -376,7 +380,7 @@ def index():
   <div class="wrap">
     <div class="hero-text">
       <h1>Paintings that let students see the cells biology class talks about</h1>
-      <p class="lede">{SITE_NAME} is a student art exhibit of sickle cells, cancer cells, the stages of mitosis and the path from gene to protein. Each painting comes with a short title card that explains what is on the canvas.</p>
+      <p class="lede">{SITE_NAME} is my art exhibit of sickle cells, cancer cells, the stages of mitosis and the path from gene to protein. Each painting comes with a short title card I wrote to explain what is on the canvas.</p>
       <div class="btn-row center">
         <a href="exhibit.html" class="btn">Walk through the exhibit</a>
       </div>
@@ -425,7 +429,7 @@ def index():
       <p>I won Best in Class in Biology as a freshman and in Genetics as a junior, and one of my paintings was shown at the Arkansas Museum of Fine Arts in ninth grade. This project is where those two halves meet: I paint the cells and processes that are hardest to imagine, so more students can see that science is within their reach.</p>
       <p>This past summer I spent six weeks as a Stephens Summer Science Scholar at the University of Arkansas for Medical Sciences, researching metastatic melanoma and ER stress in a working lab, and presented my research at the UAMS undergraduate research symposium. At school I'm vice president of our National Honor Society chapter, where I built and run the peer tutoring program.</p>
     </div>
-    <figure class="frame art about-art" style="aspect-ratio:711/890"><img src="images/art/dna-helix.webp" width="711" height="890" alt="{AUTHOR}'s painting of a gold DNA double helix unzipping across a blue cloud" loading="lazy" decoding="async"></figure>
+    <figure class="frame art about-art" style="aspect-ratio:711/890"><img src="images/art/dna-helix.webp" width="711" height="890" alt="My painting of a gold DNA double helix unzipping across a blue cloud" loading="lazy" decoding="async"></figure>
   </div>
   <div class="wrap">
     <ul class="strip">
@@ -433,6 +437,7 @@ def index():
       <li><span class="n">{N_PIECES}</span><span class="t">paintings across {WORDS[len(SERIES)]} series of cells and cell processes</span></li>
       <li><span class="n">AMFA</span><span class="t">one of my paintings was shown at the Arkansas Museum of Fine Arts</span></li>
     </ul>
+    <div class="btn-row center"><a href="about.html" class="btn ghost">More about me</a></div>
   </div>
 </section>
 
@@ -466,7 +471,7 @@ def index():
   <div class="wrap">
     <div class="section-head center">
       <h2>Three series of science paintings</h2>
-      <p>The exhibit follows cells from the shapes that signal disease to the moment one cell becomes two.</p>
+      <p>My exhibit follows cells from the shapes that signal disease to the moment one cell becomes two.</p>
     </div>
     <div class="cards">
       <a class="card" href="exhibit.html#goggle-series">
@@ -513,7 +518,7 @@ def index():
     </div>
   </div>
 </section>
-""" + cta("See the cells for yourself",
+""" + cta("From sickle cells to a cell splitting in two",
           f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings, each with a title card that explains the science in a minute or less.",
           "exhibit.html", "Walk through the exhibit", ("artists.html", "Meet the artists who paint cells")) + sources(["nagb", "edsource"]) + "\n</main>\n" + foot()
 
@@ -521,7 +526,7 @@ def index():
 # ---------------------------------------------------------------- exhibit
 def exhibit():
     t = f"Cell Paintings: Sickle Cells, Cancer Cells and the Stages of Mitosis | {SITE_NAME}"
-    d = ("A science art exhibit by student artist " + AUTHOR + ": paintings of cancer cells, flat cells and sickle cells, "
+    d = ("My science art exhibit: paintings of cancer cells, flat cells and sickle cells, "
          "the five stages of mitosis and protein synthesis, each with a plain-language title card.")
     items = [{"@type": "ListItem", "position": i, "name": p["title"], "url": SITE + "exhibit.html#" + p["id"]}
              for i, p in enumerate((p for s in SERIES for p in s["pieces"]), 1)]
@@ -551,7 +556,7 @@ def exhibit():
   <div class="wrap split">
     <div>
       <h1>Paintings of cells, mitosis and the path from gene to protein</h1>
-      <p class="lede">{N_PIECES} paintings in {WORDS[len(SERIES)]} series. Read each title card beside its painting, the way you would in a museum.</p>
+      <p class="lede">My {N_PIECES} paintings, in {WORDS[len(SERIES)]} series. Read each title card beside its painting, the way you would in a museum.</p>
       <div class="btn-row center">
         <a href="#goggle-series" class="btn">Start with the Goggle Series</a>
       </div>
@@ -560,8 +565,8 @@ def exhibit():
   </div>
 </header>
 {"".join(walls)}
-""" + cta("Why these paintings matter",
-          "Student interest in science has dropped since 2019. See the research that shaped this exhibit and what studies say about learning science through art.",
+""" + cta("Eighth graders who enjoy science fell from 52% to 42%",
+          "That drop happened between 2019 and 2024. See the research that shaped my exhibit and what studies say about learning science through art.",
           "research.html", "Read the research") + "\n</main>\n" + foot()
 
 
@@ -574,9 +579,9 @@ ARTISTS_HERO = "hero-gallery-visitor"
 ARTISTS_HERO_ALT = "A young woman in a bright gallery studying a framed painting on the wall"
 ARTISTS_HERO_CREDIT = "Pauline Loroy, Unsplash."
 ARTISTS_H1 = "Artists have painted cells for more than 350 years"
-ARTISTS_LEDE = ("Petri Palette belongs to a genre called science art, or SciArt, that began with a drawing of cork in 1665. "
-                "This gallery gathers the scientists and artists who paint cells, microbes and the molecules inside them, "
-                "with a title card for every piece.")
+ARTISTS_LEDE = ("My paintings belong to a genre called science art, or SciArt, that began with a drawing of cork in 1665. "
+                "In this gallery I gathered the scientists and artists who paint cells, microbes and the molecules inside them, "
+                "and wrote a title card for every piece.")
 
 WHY_HEAD = "Biology learned what cells look like from drawings"
 WHY_LEDE = "Before cameras could be fitted to microscopes, a drawing was the only way to show anyone else what a cell looked like."
@@ -666,7 +671,7 @@ AGAR = {"img": ("agar-butterfly", 1000, 1000),
         "alt": "A red butterfly grown from living microbes on the agar in a round glass petri dish",
         "source": "Microbial Art, Ajay Kumar Chaurasiya, 2021. CC BY-SA 4.0, via Wikimedia Commons. Cropped; the crop is shared under the same license."}
 
-MORE_LEDE = "Their work is protected by copyright, so this gallery describes it in words. Every one of them is worth looking up."
+MORE_LEDE = "Their work is protected by copyright, so I describe it here in words. Every one of them is worth looking up."
 MORE_ARTISTS = [
     {"name": "Klari Reis", "where": "Epoxy paintings in petri dishes, San Francisco",
      "text": "Reis pours dyed epoxy into plastic petri dishes and hangs them by the dozen. The work began after she was diagnosed with Crohn's disease and a doctor let her watch her own cells react to different drugs under a microscope."},
@@ -682,16 +687,16 @@ MORE_ARTISTS = [
      "text": "Brown cuts layered paper into microbes and cells by hand or by laser. His sculpture Outbreak (2014) took about four months to plan, cut and assemble, and he names Ernst Haeckel as an inspiration."},
 ]
 
-FITS_HEAD = "Where Petri Palette fits in"
-FITS_BODY = """      <p>Petri Palette adds a student's brush to this tradition. Lily Butler paints the cells high school biology asks students to learn: cancer cells and sickle cells, the stages of mitosis, and the path from gene to protein.</p>
-      <p>Each painting hangs beside a title card that explains the science in plain language. Her painting of the Golgi apparatus, shown here, pictures the organelle named for Camillo Golgi, who shared the 1906 Nobel Prize with Cajal.</p>"""
+FITS_HEAD = "Where my paintings fit in"
+FITS_BODY = """      <p>I'm Lily Butler, a high school senior, and Petri Palette is my small addition to this tradition. I paint the cells high school biology asks students to learn: cancer cells and sickle cells, the stages of mitosis, and the path from gene to protein.</p>
+      <p>Each of my paintings hangs beside a title card that explains the science in plain language. My painting of the Golgi apparatus, shown here, pictures the organelle named for Camillo Golgi, who shared the 1906 Nobel Prize with Cajal.</p>"""
 
 
 def genre_piece(p):
     name, w, h = p["img"]
     pair = ""
     if p.get("pair"):
-        pair = f'\n          <p class="see">Pairs with Lily\'s <a href="{p["pair"][0]}">{p["pair"][1]}</a>.</p>'
+        pair = f'\n          <p class="see">Pairs with my <a href="{p["pair"][0]}">{p["pair"][1]}</a>.</p>'
 
     sizes = "(max-width: 620px) calc(100vw - 40px), (max-width: 900px) 45vw, 340px"
     return f"""      <article class="piece" id="{p["id"]}">
@@ -796,15 +801,15 @@ def artists():
 
 <section id="lily" class="band">
   <div class="wrap split flip">
-    <figure class="frame art about-art" style="aspect-ratio:713/694"><img src="images/art/golgi-apparatus.webp" width="713" height="694" alt="{AUTHOR}'s painting of the Golgi apparatus: stacked dark and red-orange sacs on a teal background, ringed by round vesicles" loading="lazy" decoding="async"></figure>
+    <figure class="frame art about-art" style="aspect-ratio:713/694"><img src="images/art/golgi-apparatus.webp" width="713" height="694" alt="My painting of the Golgi apparatus: stacked dark and red-orange sacs on a teal background, ringed by round vesicles" loading="lazy" decoding="async"></figure>
     <div>
       <h2>{FITS_HEAD}</h2>
 {FITS_BODY}
     </div>
   </div>
 </section>
-""" + cta("See the cells Lily paints",
-          f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings of cells, mitosis and the path from gene to protein, each with a title card.",
+""" + cta(f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings of the cells biology class teaches",
+          "Cancer cells, sickle cells, the stages of mitosis and the path from gene to protein, each with a title card I wrote.",
           "exhibit.html", "Walk through the exhibit", ("research.html", "Read the research")) + f"""
 <section class="refs" id="credits">
   <div class="wrap">
@@ -818,6 +823,111 @@ def artists():
 </section>
 </main>
 """ + foot()
+
+
+# ---------------------------------------------------------------- about
+LILY_SIZES = "(max-width: 860px) min(calc(100vw - 40px), 400px), 440px"
+
+
+def portrait(name, alt, cls="photo portrait", eager=False):
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    return (f'<figure class="{cls}"><img src="images/{name}-800.webp" srcset="images/{name}-480.webp 480w, images/{name}-680.webp 680w, images/{name}-800.webp 800w" '
+            f'sizes="{LILY_SIZES}" width="800" height="1000" alt="{alt}" {load} decoding="async"></figure>')
+
+
+OUTSIDE = [
+    {"icon": ICON_BALL, "title": "Varsity soccer captain",
+     "text": "I play midfield and captain our varsity team this year. We won the state championship my freshman year."},
+    {"icon": ICON_PAW, "title": "Episcopaws",
+     "text": "I helped found our school's dog club and serve as treasurer. We've raised more than $2,000, volunteer with four local organizations and turn old school uniforms into dog toys."},
+    {"icon": ICON_COLUMN, "title": "Latin Club scribe",
+     "text": "I've been in Latin Club since ninth grade and earned Maxima Cum Laude on the National Latin Exam."},
+]
+
+
+def about():
+    t = f"About Me: {AUTHOR}, Student Painter and Researcher | {SITE_NAME}"
+    d = ("I'm Lily Butler, a senior at Episcopal Collegiate School in Little Rock. I paint cells, have researched "
+         "melanoma in a cancer lab at UAMS and run a peer tutoring program.")
+    schema = [page_schema("AboutPage", "about.html", t, d, {"mainEntity": {"@id": SITE + "#lily"}}),
+              crumbs("About", "about.html")]
+    pre = ('<link rel="preload" as="image" type="image/webp" href="images/lily-column-800.webp" '
+           'imagesrcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" '
+           f'imagesizes="{LILY_SIZES}" fetchpriority="high">\n')
+    outside = "\n".join(f"""      <div class="card">
+        <div class="icon">{c["icon"]}</div>
+        <h3>{c["title"]}</h3>
+        <p>{c["text"]}</p>
+      </div>""" for c in OUTSIDE)
+    return head(t, d, "about.html", schema, preload_html=pre) + nav("about.html") + f"""
+<main id="main">
+
+<header class="page-hero">
+  <div class="wrap split">
+    <div>
+      <h1>I'm Lily Butler, and I paint cells</h1>
+      <p class="lede">I'm a senior at Episcopal Collegiate School in Little Rock. I've worked in a cancer research lab, shown a painting at the Arkansas Museum of Fine Arts and built a peer tutoring program, and Petri Palette brings all three together.</p>
+      <div class="btn-row center">
+        <a href="exhibit.html" class="btn">Walk through my exhibit</a>
+      </div>
+    </div>
+    {portrait("lily-column", "Lily Butler in a white top, leaning against a white column outside a brick building and smiling", "hero-photo portrait", eager=True)}
+  </div>
+  <div class="wrap">
+    <ul class="strip">
+      <li><span class="n">176 hrs</span><span class="t">of cancer research at UAMS the summer before senior year</span></li>
+      <li><span class="n">AMFA</span><span class="t">one of my paintings was shown at the Arkansas Museum of Fine Arts in ninth grade</span></li>
+      <li><span class="n">2</span><span class="t">Best in Class awards in science: Biology in ninth grade, Genetics in eleventh</span></li>
+    </ul>
+  </div>
+</header>
+
+<section id="research" class="band">
+  <div class="wrap split">
+    <div>
+      <h2>Six weeks in a cancer research lab</h2>
+      <p>The summer before my senior year, I was a Jackson T. Stephens Summer Science Scholar at the University of Arkansas for Medical Sciences. I spent six weeks of full days in a lab studying metastatic melanoma and ER stress, about 176 hours in all, and ran my own research project there.</p>
+      <p>ER stress happens when the endoplasmic reticulum, the part of the cell that folds new proteins, is overloaded. At the end of the program I presented my research to judges at the UAMS undergraduate research symposium.</p>
+    </div>
+    <figure class="frame art about-art" style="aspect-ratio:713/694"><img src="images/art/golgi-apparatus.webp" width="713" height="694" alt="My painting of the Golgi apparatus: stacked dark and red-orange sacs on a teal background, ringed by round vesicles" loading="lazy" decoding="async"></figure>
+  </div>
+</section>
+
+<section id="painting">
+  <div class="wrap split flip">
+    <figure class="frame art about-art" style="aspect-ratio:711/890"><img src="images/art/dna-helix.webp" width="711" height="890" alt="My painting of a gold DNA double helix unzipping across a blue cloud" loading="lazy" decoding="async"></figure>
+    <div>
+      <h2>A painting at the Arkansas Museum of Fine Arts</h2>
+      <p>In ninth grade, one of my paintings was shown at the Arkansas Museum of Fine Arts. That same year I won Best in Class in Biology, and in eleventh grade I won it in Genetics.</p>
+      <p>Petri Palette puts those two interests on the same canvas. I paint the cells and processes that are hardest to imagine, so more students can see that science is within their reach.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tutoring" class="band">
+  <div class="wrap split">
+    <div>
+      <h2>Helping classmates learn</h2>
+      <p>I'm vice president of our National Honor Society chapter, where I built and run the peer tutoring program.</p>
+      <p>I also tutor at Episcopal's Writing Center. As its director of online operations, I built the website and scheduling system that more than 450 students use to book appointments.</p>
+    </div>
+    {portrait("lily-wall", "Lily Butler in a blue floral dress, sitting on a stone wall in a park and smiling")}
+  </div>
+</section>
+
+<section id="outside">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>Outside the lab and the studio</h2>
+    </div>
+    <div class="cards">
+{outside}
+    </div>
+  </div>
+</section>
+""" + cta("Start with the Goggle Series",
+          "Cancer cells, flat cells and sickle cells open my exhibit, followed by mitosis and the path from gene to protein.",
+          "exhibit.html#goggle-series", "Walk through my exhibit", ("artists.html", "Meet the artists who paint cells")) + "\n</main>\n" + foot()
 
 
 # ---------------------------------------------------------------- research
@@ -946,7 +1056,7 @@ def sitemap():
 FAVICON = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">{DISH}</svg>\n'
 
 if __name__ == "__main__":
-    out = {"index.html": index, "exhibit.html": exhibit, "artists.html": artists, "research.html": research}
+    out = {"index.html": index, "exhibit.html": exhibit, "artists.html": artists, "research.html": research, "about.html": about}
     for name, fn in out.items():
         with open(name, "w") as f:
             f.write(fn())
