@@ -41,7 +41,18 @@ for name, (src, box) in PORTRAITS.items():
         im.resize((w, round(w * 5 / 4)), Image.LANCZOS).save(f"images/{name}-{w}.webp", quality=70, method=6)
     print("wrote", name)
 
-# Link preview image (og.jpg): Lily, cropped wide around her face and shoulders.
-og = grade(Image.open("images/originals/lily-column.jpg").crop((900, 420, 4100, 2100)))
-og.resize((1200, 630), Image.LANCZOS).save("images/og.jpg", quality=82)
+# Link preview image (og.jpg): her DNA painting hung on the site's Prussian
+# blue, with the same thin gilt line the frames use. Her art, never her face.
+from PIL import ImageDraw, ImageFilter
+card = Image.new("RGB", (1200, 630), (10, 36, 64))
+art = Image.open("images/art/originals/dna-helix.png").convert("RGB")
+h = 560
+art = art.resize((round(art.width * h / art.height), h), Image.LANCZOS)
+x, y = (1200 - art.width) // 2, (630 - h) // 2
+shadow = Image.new("L", (1200, 630), 0)
+ImageDraw.Draw(shadow).rectangle((x + 6, y + 18, x + art.width + 6, y + h + 18), fill=150)
+card.paste((3, 12, 24), (0, 0), shadow.filter(ImageFilter.GaussianBlur(18)))
+card.paste(art, (x, y))
+ImageDraw.Draw(card).rectangle((x, y, x + art.width - 1, y + h - 1), outline=(201, 162, 63), width=3)
+card.save("images/og.jpg", quality=86)
 print("wrote og.jpg")

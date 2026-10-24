@@ -143,7 +143,7 @@ def head(title, desc, path="", schema=None, hero=None, sizes=HOME_SIZES, preload
 <meta property="og:image" content="{SITE}images/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Lily Butler, the student artist behind Petri Palette, smiling outside a brick building">
+<meta property="og:image:alt" content="Lily Butler's painting of a gold DNA double helix unzipping across a blue cloud, on a dark blue wall">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 {preload}<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
