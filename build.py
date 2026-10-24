@@ -370,7 +370,7 @@ def index():
 <header class="studio-hero">
   <div class="wrap hero2">
     <div class="hero2-text">
-      <h1>Paintings that help students remember cell biology</h1>
+      <h1>Science anyone can see</h1>
       <div class="btn-row center">
         <a href="exhibit.html" class="btn light">Walk through the exhibit</a>
       </div>
