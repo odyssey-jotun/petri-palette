@@ -352,8 +352,8 @@ def piece_html(p):
 
 
 # ---------------------------------------------------------------- home
-# Home hero: Lily on one side, her painting on the other, the headline between.
-TRIP_SIZES = "(max-width: 1024px) 46vw, 300px"
+# Home hero: headline and one button, then Lily and her painting side by side.
+TRIP_SIZES = "(max-width: 860px) 46vw, 320px"
 
 
 def index():
@@ -368,21 +368,16 @@ def index():
 <main id="main">
 
 <header class="studio-hero">
-  <div class="wrap trip">
-    <div class="trip-me">
-    <figure class="trip-photo"><img src="images/lily-column-800.webp" srcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" sizes="{TRIP_SIZES}" width="800" height="1000" alt="Lily Butler, the student artist behind Petri Palette, in a white top, leaning against a white column and smiling" fetchpriority="high" decoding="async"></figure>
-      <p class="studio-card me-card"><strong>{AUTHOR}</strong><span>Artist and biology student</span></p>
-    </div>
-    <div class="trip-text">
+  <div class="wrap hero2">
+    <div class="hero2-text">
       <h1>Paintings that help students remember cell biology</h1>
-      <p class="lede">Mitosis and protein synthesis, painted for biology students, with a one-minute title card beside every painting.</p>
       <div class="btn-row center">
         <a href="exhibit.html" class="btn light">Walk through the exhibit</a>
       </div>
     </div>
-    <div class="trip-art">
+    <div class="diptych">
+      <figure class="trip-photo"><img src="images/lily-column-800.webp" srcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" sizes="{TRIP_SIZES}" width="800" height="1000" alt="Lily Butler, the student artist behind Petri Palette, in a white top, leaning against a white column and smiling" fetchpriority="high" decoding="async"></figure>
       <figure class="canvas"><img src="images/art/dna-helix.webp" srcset="images/art/dna-helix-520.webp 520w, images/art/dna-helix.webp 711w" sizes="{TRIP_SIZES}" width="711" height="890" alt="My painting of a gold DNA double helix unzipping across a blue cloud" decoding="async"></figure>
-      <p class="studio-card"><strong>DNA to RNA</strong><span>From my Protein Transcription series</span></p>
     </div>
   </div>
 </header>
