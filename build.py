@@ -369,10 +369,13 @@ def index():
 
 <header class="studio-hero">
   <div class="wrap trip">
+    <div class="trip-me">
     <figure class="trip-photo"><img src="images/lily-column-800.webp" srcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" sizes="{TRIP_SIZES}" width="800" height="1000" alt="Lily Butler, the student artist behind Petri Palette, in a white top, leaning against a white column and smiling" fetchpriority="high" decoding="async"></figure>
+      <p class="studio-card me-card"><strong>{AUTHOR}</strong><span>Artist and biology student</span></p>
+    </div>
     <div class="trip-text">
-      <h1>Paintings that let students see the cells biology class talks about</h1>
-      <p class="lede">I'm {AUTHOR}, and {SITE_NAME} is my art exhibit of the stages of mitosis and the path from gene to protein. Each painting comes with a short title card I wrote to explain what is on the canvas.</p>
+      <h1>Paintings that help students remember cell biology</h1>
+      <p class="lede">Mitosis and protein synthesis, painted for biology students, with a one-minute title card beside every painting.</p>
       <div class="btn-row center">
         <a href="exhibit.html" class="btn light">Walk through the exhibit</a>
       </div>
