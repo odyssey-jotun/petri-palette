@@ -17,7 +17,7 @@ import re
 SITE_NAME = "Petri Palette"
 AUTHOR = "Lily Butler"
 SITE = "https://odyssey-jotun.github.io/petri-palette/"
-TODAY = "2026-10-23"
+TODAY = "2026-10-24"
 
 # Sources, cited in plain text. No links on purpose (see README).
 SOURCES = {
@@ -131,7 +131,7 @@ def head(title, desc, path="", schema=None, hero=None, sizes=HOME_SIZES, preload
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="robots" content="noindex,nofollow">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="{url}">
 <meta name="author" content="{AUTHOR}">
 <meta name="theme-color" content="#FFFFFF">
@@ -1002,9 +1002,8 @@ if __name__ == "__main__":
         print("wrote", name)
     with open("sitemap.xml", "w") as f:
         f.write(sitemap())
-    # Preview stays out of search until Lily approves the copy and the paintings are in.
     with open("robots.txt", "w") as f:
-        f.write("User-agent: *\nDisallow: /\n")
+        f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}sitemap.xml\n")
     with open("favicon.svg", "w") as f:
         f.write(FAVICON)
     print("wrote sitemap.xml, robots.txt, favicon.svg")

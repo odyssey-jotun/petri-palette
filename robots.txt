@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://odyssey-jotun.github.io/petri-palette/sitemap.xml

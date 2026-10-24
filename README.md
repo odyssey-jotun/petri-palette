@@ -10,7 +10,7 @@ The StoryBrand framework the copy follows is in `BRANDSCRIPT.md`. Change the scr
 
 https://odyssey-jotun.github.io/petri-palette/
 
-The repository is public and GitHub Pages serves `main` at root. Pushing to `main` redeploys. Every page is `noindex,nofollow` and `robots.txt` disallows all until the paintings are in and the site is ready to launch. To open it to search, change the robots meta in `head()` to `index,follow,max-image-preview:large` and the robots.txt text in `build.py` to `Allow: /` plus the sitemap line.
+The repository is public and GitHub Pages serves `main` at root. Pushing to `main` redeploys. The site is open to search engines (robots meta `index,follow`, `robots.txt` allows all and points to `sitemap.xml`). To hide it again, set the robots meta in `head()` to `noindex,nofollow` and the robots.txt text in `build.py` to `Disallow: /`.
 
 ## Pages
 
