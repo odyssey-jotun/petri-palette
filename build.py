@@ -17,7 +17,7 @@ import re
 SITE_NAME = "Petri Palette"
 AUTHOR = "Lily Butler"
 SITE = "https://odyssey-jotun.github.io/petri-palette/"
-TODAY = "2026-10-24"
+TODAY = "2026-10-27"
 
 # Sources, cited in plain text. No links on purpose (see README).
 SOURCES = {
@@ -38,9 +38,10 @@ SERIES = [
     {"id": "mitosis", "name": "Mitosis",
      "intro": "One cell becoming two, painted as five stages. Human cells carry 46 chromosomes, so I painted only a handful to keep each stage easy to read.",
      "pieces": [
-         {"id": "interphase", "title": "Interphase", "meta": "Before mitosis", "draw": "interphase", "art": None,
-          "text": "The cell grows and copies its DNA. The chromosomes are loose, stringy and tangled together, so no single one stands out yet.",
-          "see": "Look for the messy, jumbled strands."},
+         {"id": "interphase", "title": "Interphase", "meta": "Before mitosis", "draw": "interphase", "art": ("interphase.webp", 900, 900),
+          "alt": "a round yellow cell with a pale green center, a dark green nucleus holding tangled yellow and red strands, and two small blue centrosomes with fine fibers above it",
+          "text": "The cell grows and copies its DNA, and its centrosome copies itself too. The chromosomes are loose, stringy and tangled together, so no single one stands out yet.",
+          "see": "Look for the messy, jumbled strands in the nucleus and the two centrosomes above it."},
          {"id": "prophase", "title": "Prophase", "meta": "Stage 1", "draw": "prophase", "art": None,
           "text": "The copied chromosomes coil up tight enough to see, and spindle fibers begin to form at opposite ends of the cell.",
           "see": "Look for the X-shaped chromosomes floating free."},
@@ -65,6 +66,14 @@ SERIES = [
           "alt": "a stack of curved dark and red-orange sacs on a teal background, ringed by round orange vesicles",
           "text": "Newly made proteins pass through the Golgi apparatus, a stack of flattened sacs that sorts and packages them. Small bubbles called vesicles bud off the edges and carry the finished proteins where they need to go.",
           "see": "Look for the stacked sacs and the round vesicles around them."},
+     ]},
+    {"id": "goggle-series", "name": "The Goggle Series",
+     "intro": "Cells seen through a pair of lab goggles, starting with cells that will not stop dividing.",
+     "pieces": [
+         {"id": "cancer-cells", "title": "Cancer Cells", "meta": "Goggles 1", "draw": "cancer", "art": ("goggles-cancer-cells.webp", 900, 720),
+          "alt": "a pair of mint and white lab goggles on a dark green background, the lenses filled with hundreds of red, pink and maroon dots in different sizes",
+          "text": "Cancer cells keep dividing after the signals that stop healthy cells have shut off. They pile up in uneven sizes and crowd the healthy tissue around them.",
+          "see": "Look for the dots in every size and shade, packed in with no pattern."},
      ]},
 ]
 N_PIECES = sum(len(s["pieces"]) for s in SERIES)
@@ -456,10 +465,10 @@ def index():
 <section id="series">
   <div class="wrap">
     <div class="section-head center">
-      <h2>Two series of science paintings</h2>
-      <p>My exhibit follows one cell becoming two, then a gene becoming a protein.</p>
+      <h2>Three series of science paintings</h2>
+      <p>My exhibit follows one cell becoming two, a gene becoming a protein, and cells that will not stop dividing.</p>
     </div>
-    <div class="cards two">
+    <div class="cards">
       <a class="card" href="exhibit.html#mitosis">
         <div class="icon">{ICON_SPLIT}</div>
         <h3>Mitosis</h3>
@@ -469,6 +478,11 @@ def index():
         <div class="icon">{ICON_HELIX}</div>
         <h3>Protein Transcription</h3>
         <p>How a gene's DNA is copied into RNA, built into a protein and packaged by the Golgi apparatus.</p>
+      </a>
+      <a class="card" href="exhibit.html#goggle-series">
+        <div class="icon">{ICON_GOGGLES}</div>
+        <h3>The Goggle Series</h3>
+        <p>Cells seen through a pair of lab goggles, starting with cancer cells.</p>
       </a>
     </div>
   </div>
@@ -508,7 +522,7 @@ def index():
 def exhibit():
     t = f"Cell Paintings: The Stages of Mitosis and Protein Synthesis | {SITE_NAME}"
     d = ("My science art exhibit: paintings of "
-         "the five stages of mitosis and protein synthesis, each with a plain-language title card.")
+         "the five stages of mitosis, protein synthesis and cancer cells, each with a plain-language title card.")
     items = [{"@type": "ListItem", "position": i, "name": p["title"], "url": SITE + "exhibit.html#" + p["id"]}
              for i, p in enumerate((p for s in SERIES for p in s["pieces"]), 1)]
     schema = [page_schema("CollectionPage", "exhibit.html", t, d,
@@ -516,8 +530,8 @@ def exhibit():
               crumbs("The Exhibit", "exhibit.html")]
     walls = []
     for s in SERIES:
-        cls = {5: "wall five", 2: "wall two"}.get(len(s["pieces"]), "wall")
-        band = ' band' if s["id"] == "mitosis" else ""
+        cls = {5: "wall five", 2: "wall two", 1: "wall one"}.get(len(s["pieces"]), "wall")
+        band = ' band' if s["id"] in ("mitosis", "goggle-series") else ""
         walls.append(f"""
 <section class="series{band}" id="{s["id"]}">
   <div class="wrap">
@@ -631,7 +645,7 @@ GENRE = [
           "artist": "Odra Noel", "date": "paint on silk",
           "alt": "A pale blue immune cell reaching out to a green cancer cell on a background of swirling peach tissue",
           "text": "Noel trained as a doctor and earned a PhD in basic science before she began painting cells on silk. Here a killer T cell, one of the immune system's defenders, destroys a cancer cell, cast as the knight and the dragon.",
-          "credit": "CC BY-NC 4.0, Wellcome Collection",
+          "pair": ("exhibit.html#cancer-cells", "Cancer Cells painting"), "credit": "CC BY-NC 4.0, Wellcome Collection",
           "source": "St George and the dragon: T lymphocyte killing a cancer cell. Odra Noel. CC BY-NC 4.0. Source: Wellcome Collection."},
          {"id": "noel-blood", "img": ("noel-blood", 1000, 1198), "title": "Blood Cells Through the Microscope",
           "artist": "Odra Noel", "date": "paint on silk",

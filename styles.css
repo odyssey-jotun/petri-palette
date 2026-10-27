@@ -270,6 +270,7 @@ h2{ font-size: clamp(1.8rem, 3.3vw, 2.45rem); }
 .wall{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 34px 26px; align-items: start; }
 .wall.five{ grid-template-columns: repeat(6, 1fr); }
 .wall.two{ grid-template-columns: repeat(2, minmax(0, 340px)); justify-content: center; }
+.wall.one{ grid-template-columns: minmax(0, 460px); justify-content: center; }
 .wall.five .piece{ grid-column: span 2; }
 .wall.five .piece:nth-child(4){ grid-column: 2 / span 2; }
 .piece{ display:grid; gap: 18px; justify-items: center; }
@@ -345,6 +346,7 @@ footer ul a{ display:inline-flex; align-items:center; min-height: 44px; color: v
   nav.site ul a{ padding: 0 4px; font-size: 0.95rem; }
   html{ scroll-padding-top: 130px; }
   .wall, .wall.five, .wall.two{ grid-template-columns: 1fr 1fr; }
+  .wall.one{ grid-template-columns: minmax(0, 460px); }
   .wall.five .piece, .wall.five .piece:nth-child(4){ grid-column: auto; }
 }
 @media (min-width: 560px) and (max-width: 900px){
