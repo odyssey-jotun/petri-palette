@@ -35,26 +35,6 @@ SOURCES = {
 # "art": file name in images/art/ once Lily's painting is scanned, else None.
 # "title" stays as the subject until Lily names the painting.
 SERIES = [
-    {"id": "mitosis", "name": "Mitosis",
-     "intro": "One cell becoming two, painted as five stages. Human cells carry 46 chromosomes, so I painted only a handful to keep each stage easy to read.",
-     "pieces": [
-         {"id": "interphase", "title": "Interphase", "meta": "Before mitosis", "draw": "interphase", "art": ("interphase.webp", 900, 900),
-          "alt": "a round yellow cell with a pale green center, a dark green nucleus holding tangled yellow and red strands, and two small blue centrosomes with fine fibers above it",
-          "text": "The cell grows and copies its DNA, and its centrosome copies itself too. The chromosomes are loose, stringy and tangled together, so no single one stands out yet.",
-          "see": "Look for the messy, jumbled strands in the nucleus and the two centrosomes above it."},
-         {"id": "prophase", "title": "Prophase", "meta": "Stage 1", "draw": "prophase", "art": None,
-          "text": "The copied chromosomes coil up tight enough to see, and spindle fibers begin to form at opposite ends of the cell.",
-          "see": "Look for the X-shaped chromosomes floating free."},
-         {"id": "metaphase", "title": "Metaphase", "meta": "Stage 2", "draw": "metaphase", "art": None,
-          "text": "The chromosomes line up across the middle of the cell. Each one is two identical sister chromatids joined at the center, with spindle fibers attached from both sides.",
-          "see": "Look for the line of chromosomes down the middle."},
-         {"id": "anaphase", "title": "Anaphase", "meta": "Stage 3", "draw": "anaphase", "art": None,
-          "text": "The spindle fibers pull the sister chromatids apart, and each half moves toward an opposite end of the cell.",
-          "see": "Look for the chromatids pulling away from each other."},
-         {"id": "telophase", "title": "Telophase", "meta": "Stage 4", "draw": "telophase", "art": None,
-          "text": "A new nucleus forms at each end, and the cell pinches in at the middle until it splits into two cells.",
-          "see": "Look for the pinch in the middle."},
-     ]},
     {"id": "protein-transcription", "name": "Protein Transcription",
      "intro": "How a gene becomes a protein. In the nucleus, a gene's DNA is copied into messenger RNA (transcription). A ribosome then reads that RNA and links amino acids into a protein (translation), and the Golgi apparatus packages the finished protein.",
      "pieces": [
@@ -74,6 +54,26 @@ SERIES = [
           "alt": "a pair of mint and white lab goggles on a dark green background, the lenses filled with hundreds of red, pink and maroon dots in different sizes",
           "text": "Cancer cells keep dividing after the signals that stop healthy cells have shut off. They pile up in uneven sizes and crowd the healthy tissue around them.",
           "see": "Look for the dots in every size and shade, packed in with no pattern."},
+     ]},
+    {"id": "mitosis", "name": "Mitosis",
+     "intro": "One cell becoming two, painted as five stages. Human cells carry 46 chromosomes, so I painted only a handful to keep each stage easy to read.",
+     "pieces": [
+         {"id": "interphase", "title": "Interphase", "meta": "Before mitosis", "draw": "interphase", "art": ("interphase.webp", 900, 900),
+          "alt": "a round yellow cell with a pale green center, a dark green nucleus holding tangled yellow and red strands, and two small blue centrosomes with fine fibers above it",
+          "text": "The cell grows and copies its DNA, and its centrosome copies itself too. The chromosomes are loose, stringy and tangled together, so no single one stands out yet.",
+          "see": "Look for the messy, jumbled strands in the nucleus and the two centrosomes above it."},
+         {"id": "prophase", "title": "Prophase", "meta": "Stage 1", "draw": "prophase", "art": None,
+          "text": "The copied chromosomes coil up tight enough to see, and spindle fibers begin to form at opposite ends of the cell.",
+          "see": "Look for the X-shaped chromosomes floating free."},
+         {"id": "metaphase", "title": "Metaphase", "meta": "Stage 2", "draw": "metaphase", "art": None,
+          "text": "The chromosomes line up across the middle of the cell. Each one is two identical sister chromatids joined at the center, with spindle fibers attached from both sides.",
+          "see": "Look for the line of chromosomes down the middle."},
+         {"id": "anaphase", "title": "Anaphase", "meta": "Stage 3", "draw": "anaphase", "art": None,
+          "text": "The spindle fibers pull the sister chromatids apart, and each half moves toward an opposite end of the cell.",
+          "see": "Look for the chromatids pulling away from each other."},
+         {"id": "telophase", "title": "Telophase", "meta": "Stage 4", "draw": "telophase", "art": None,
+          "text": "A new nucleus forms at each end, and the cell pinches in at the middle until it splits into two cells.",
+          "see": "Look for the pinch in the middle."},
      ]},
 ]
 N_PIECES = sum(len(s["pieces"]) for s in SERIES)
@@ -466,14 +466,9 @@ def index():
   <div class="wrap">
     <div class="section-head center">
       <h2>Three series of science paintings</h2>
-      <p>My exhibit follows one cell becoming two, a gene becoming a protein, and cells that will not stop dividing.</p>
+      <p>My exhibit follows a gene becoming a protein, cells that will not stop dividing, and one cell becoming two.</p>
     </div>
     <div class="cards">
-      <a class="card" href="exhibit.html#mitosis">
-        <div class="icon">{ICON_SPLIT}</div>
-        <h3>Mitosis</h3>
-        <p>Interphase, prophase, metaphase, anaphase and telophase, painted stage by stage.</p>
-      </a>
       <a class="card" href="exhibit.html#protein-transcription">
         <div class="icon">{ICON_HELIX}</div>
         <h3>Protein Transcription</h3>
@@ -483,6 +478,11 @@ def index():
         <div class="icon">{ICON_GOGGLES}</div>
         <h3>The Goggle Series</h3>
         <p>Cells seen through a pair of lab goggles, starting with cancer cells.</p>
+      </a>
+      <a class="card" href="exhibit.html#mitosis">
+        <div class="icon">{ICON_SPLIT}</div>
+        <h3>Mitosis</h3>
+        <p>Interphase, prophase, metaphase, anaphase and telophase, painted stage by stage.</p>
       </a>
     </div>
   </div>
@@ -529,9 +529,10 @@ def exhibit():
                           {"mainEntity": {"@type": "ItemList", "itemListElement": items}}),
               crumbs("The Exhibit", "exhibit.html")]
     walls = []
-    for s in SERIES:
+    # Finished paintings lead: series are ordered by how much of each is painted.
+    for i, s in enumerate(SERIES):
         cls = {5: "wall five", 2: "wall two", 1: "wall one"}.get(len(s["pieces"]), "wall")
-        band = ' band' if s["id"] in ("mitosis", "goggle-series") else ""
+        band = ' band' if i % 2 == 0 else ""
         walls.append(f"""
 <section class="series{band}" id="{s["id"]}">
   <div class="wrap">
@@ -550,10 +551,10 @@ def exhibit():
 <header class="page-hero">
   <div class="wrap split">
     <div>
-      <h1>Mitosis and protein synthesis, painted</h1>
+      <h1>Protein synthesis, cancer cells and mitosis, painted</h1>
       <p class="lede">My {WORDS[N_PIECES]} paintings, in {WORDS[len(SERIES)]} series. Read each title card beside its painting, the way you would in a museum.</p>
       <div class="btn-row center">
-        <a href="#mitosis" class="btn">Start with mitosis</a>
+        <a href="#protein-transcription" class="btn">Start with protein transcription</a>
       </div>
     </div>
     {hero_img("hero-bright-gallery", "A visitor standing in a bright gallery, looking at a wall of colorful paintings", PAGE_SIZES)}
