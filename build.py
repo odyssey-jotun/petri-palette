@@ -47,14 +47,6 @@ SERIES = [
           "text": "Newly made proteins pass through the Golgi apparatus, a stack of flattened sacs that sorts and packages them. Small bubbles called vesicles bud off the edges and carry the finished proteins where they need to go.",
           "see": "Look for the stacked sacs and the round vesicles around them."},
      ]},
-    {"id": "goggle-series", "name": "The Goggle Series",
-     "intro": "Cells seen through a pair of lab goggles, starting with cells that will not stop dividing.",
-     "pieces": [
-         {"id": "cancer-cells", "title": "Cancer Cells", "meta": "Goggles 1", "draw": "cancer", "art": ("goggles-cancer-cells.webp", 900, 720),
-          "alt": "a pair of mint and white lab goggles on a dark green background, the lenses filled with hundreds of red, pink and maroon dots in different sizes",
-          "text": "Cancer cells keep dividing after the signals that stop healthy cells have shut off. They pile up in uneven sizes and crowd the healthy tissue around them.",
-          "see": "Look for the dots in every size and shade, packed in with no pattern."},
-     ]},
     {"id": "mitosis", "name": "Mitosis",
      "intro": "One cell becoming two, painted as five stages. Human cells carry 46 chromosomes, so I painted only a handful to keep each stage easy to read.",
      "pieces": [
@@ -62,9 +54,10 @@ SERIES = [
           "alt": "a round yellow cell with a pale green center, a dark green nucleus holding tangled yellow and red strands, and two small blue centrosomes with fine fibers above it",
           "text": "The cell grows and copies its DNA, and its centrosome copies itself too. The chromosomes are loose, stringy and tangled together, so no single one stands out yet.",
           "see": "Look for the messy, jumbled strands in the nucleus and the two centrosomes above it."},
-         {"id": "prophase", "title": "Prophase", "meta": "Stage 1", "draw": "prophase", "art": None,
-          "text": "The copied chromosomes coil up tight enough to see, and spindle fibers begin to form at opposite ends of the cell.",
-          "see": "Look for the X-shaped chromosomes floating free."},
+         {"id": "prophase", "title": "Prophase", "meta": "Stage 1", "draw": "prophase", "art": ("prophase.webp", 900, 900),
+          "alt": "a round yellow cell with a deep teal center, a lighter teal nucleus outlined in dashed yellow holding six small navy and pink X-shaped chromosomes, and two pale green centrosomes with fine spindle fibers curving around it",
+          "text": "The copied chromosomes coil up tight enough to see, the nuclear envelope starts to break apart, and spindle fibers begin to form between the centrosomes at opposite ends of the cell.",
+          "see": "Look for the X-shaped chromosomes floating free and the dashed line where the nucleus is coming apart."},
          {"id": "metaphase", "title": "Metaphase", "meta": "Stage 2", "draw": "metaphase", "art": None,
           "text": "The chromosomes line up across the middle of the cell. Each one is two identical sister chromatids joined at the center, with spindle fibers attached from both sides.",
           "see": "Look for the line of chromosomes down the middle."},
@@ -74,6 +67,14 @@ SERIES = [
          {"id": "telophase", "title": "Telophase", "meta": "Stage 4", "draw": "telophase", "art": None,
           "text": "A new nucleus forms at each end, and the cell pinches in at the middle until it splits into two cells.",
           "see": "Look for the pinch in the middle."},
+     ]},
+    {"id": "goggle-series", "name": "The Goggle Series",
+     "intro": "Cells seen through a pair of lab goggles, starting with cells that will not stop dividing.",
+     "pieces": [
+         {"id": "cancer-cells", "title": "Cancer Cells", "meta": "Goggles 1", "draw": "cancer", "art": ("goggles-cancer-cells.webp", 900, 720),
+          "alt": "a pair of mint and white lab goggles on a dark green background, the lenses filled with hundreds of red, pink and maroon dots in different sizes",
+          "text": "Cancer cells keep dividing after the signals that stop healthy cells have shut off. They pile up in uneven sizes and crowd the healthy tissue around them.",
+          "see": "Look for the dots in every size and shade, packed in with no pattern."},
      ]},
 ]
 N_PIECES = sum(len(s["pieces"]) for s in SERIES)
@@ -466,7 +467,7 @@ def index():
   <div class="wrap">
     <div class="section-head center">
       <h2>Three series of science paintings</h2>
-      <p>My exhibit follows a gene becoming a protein, cells that will not stop dividing, and one cell becoming two.</p>
+      <p>My exhibit follows a gene becoming a protein, one cell becoming two, and cells that will not stop dividing.</p>
     </div>
     <div class="cards">
       <a class="card" href="exhibit.html#protein-transcription">
@@ -474,15 +475,15 @@ def index():
         <h3>Protein Transcription</h3>
         <p>How a gene's DNA is copied into RNA, built into a protein and packaged by the Golgi apparatus.</p>
       </a>
-      <a class="card" href="exhibit.html#goggle-series">
-        <div class="icon">{ICON_GOGGLES}</div>
-        <h3>The Goggle Series</h3>
-        <p>Cells seen through a pair of lab goggles, starting with cancer cells.</p>
-      </a>
       <a class="card" href="exhibit.html#mitosis">
         <div class="icon">{ICON_SPLIT}</div>
         <h3>Mitosis</h3>
         <p>Interphase, prophase, metaphase, anaphase and telophase, painted stage by stage.</p>
+      </a>
+      <a class="card" href="exhibit.html#goggle-series">
+        <div class="icon">{ICON_GOGGLES}</div>
+        <h3>The Goggle Series</h3>
+        <p>Cells seen through a pair of lab goggles, starting with cancer cells.</p>
       </a>
     </div>
   </div>
@@ -551,7 +552,7 @@ def exhibit():
 <header class="page-hero">
   <div class="wrap split">
     <div>
-      <h1>Protein synthesis, cancer cells and mitosis, painted</h1>
+      <h1>Protein synthesis, mitosis and cancer cells, painted</h1>
       <p class="lede">My {WORDS[N_PIECES]} paintings, in {WORDS[len(SERIES)]} series. Read each title card beside its painting, the way you would in a museum.</p>
       <div class="btn-row center">
         <a href="#protein-transcription" class="btn">Start with protein transcription</a>
