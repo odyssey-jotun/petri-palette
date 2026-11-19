@@ -18,7 +18,7 @@ Biology class asks students to learn cells they have never seen. I paint those c
 ## 2. The problem
 
 - **Villain:** abstraction. Interest drops once science courses begin to resemble lecture halls and rote memorization rather than physical experimentation and exploration, and cell biology is where that happens first.
-- **External:** science scores are sliding. In 2024, 38% of eighth graders scored below NAEP Basic in science, the highest share since 2011, and the average score fell back to its 2009 level.
+- **External:** science scores are sliding. In 2024, 38% of eighth graders scored below NAEP Basic in science, up 5 points from 2019, and the average score fell back to its 2009 level.
 - **Internal:** students decide they are not science people. Eighth graders who enjoy science activities fell from 52% in 2019 to 42% in 2024. I think of it as self-impeding: students talk themselves out of a subject before they have seen it.
 - **Philosophical:** no student should give up on biology because nobody ever showed them what a cell looks like.
 

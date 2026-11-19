@@ -404,7 +404,7 @@ def index():
         <div class="icon">{ICON_SCORE}</div>
         <p class="num">38%</p>
         <h3>Science scores have slid back to 2009</h3>
-        <p>The average eighth grade science score fell 4 points between 2019 and 2024. The share scoring below NAEP Basic is the highest since 2011.</p>
+        <p>The average eighth grade science score fell 4 points between 2019 and 2024. The share scoring below NAEP Basic rose 5 points, from 33% to 38%.</p>
         <p class="of">of U.S. eighth graders scored below Basic in science in 2024</p>
       </div>
       <div class="card">
@@ -933,7 +933,7 @@ def research():
       <div class="card">
         <p class="num">38%</p>
         <h3>Below NAEP Basic</h3>
-        <p>The highest share of eighth graders below Basic since 2011.</p>
+        <p>Up 5 points from 33% in 2019.</p>
       </div>
       <div class="card">
         <p class="num">Record low</p>
