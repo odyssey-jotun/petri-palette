@@ -17,7 +17,7 @@ import re
 SITE_NAME = "Petri Palette"
 AUTHOR = "Lily Butler"
 SITE = "https://odyssey-jotun.github.io/petri-palette/"
-TODAY = "2026-10-27"
+TODAY = "2026-11-23"
 
 # Sources, cited in plain text. No links on purpose (see README).
 SOURCES = {
@@ -366,11 +366,25 @@ def piece_html(p):
 TRIP_SIZES = "(max-width: 860px) 46vw, 320px"
 
 
+FILM = "video/petri-palette-lily-butler"
+FILM_SCHEMA = {"@type": "VideoObject", "@id": SITE + "#film", "name": "Petri Palette, in my own words",
+               "description": "Lily Butler on who she paints cells for, why biology can feel hard, her six weeks in a cancer lab at UAMS, "
+                              "and how she turns a stage of mitosis into a painting.",
+               "thumbnailUrl": SITE + "images/lily-video-poster.webp", "uploadDate": "2026-11-23", "duration": "PT2M57S",
+               "contentUrl": SITE + FILM + ".mp4", "inLanguage": "en-US", "author": {"@id": SITE + "#lily"}}
+
+# The film shows native controls until this runs, so it still plays without JavaScript.
+FILM_JS = """<script>
+(()=>{const f=document.querySelector('.film'),v=f.querySelector('video'),b=f.querySelector('.film-play');
+v.controls=false;b.hidden=false;b.addEventListener('click',()=>{f.classList.add('playing');v.controls=true;v.play()});})();
+</script>"""
+
+
 def index():
     t = f"Science Art Exhibit: Paintings of Cells and Mitosis | {SITE_NAME}"
     d = ("My paintings of the stages of mitosis and the path from gene to protein, "
          "made to help students picture the biology they are asked to learn.")
-    schema = [page_schema("WebPage", "", t, d, {"about": "Science art for biology education"})]
+    schema = [page_schema("WebPage", "", t, d, {"about": "Science art for biology education"}), FILM_SCHEMA]
     pre = ('<link rel="preload" as="image" type="image/webp" href="images/lily-column-800.webp" '
            'imagesrcset="images/lily-column-480.webp 480w, images/lily-column-680.webp 680w, images/lily-column-800.webp 800w" '
            f'imagesizes="{TRIP_SIZES}" fetchpriority="high">\n')
@@ -392,6 +406,23 @@ def index():
     </div>
   </div>
 </header>
+
+<section id="film" class="film-sec">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>In my own words</h2>
+      <p>Who I paint for, what I learned in a cancer lab, and how a cell becomes a painting.</p>
+    </div>
+    <figure class="film">
+      <video controls playsinline preload="none" poster="images/lily-video-poster.webp" width="1920" height="1080">
+        <source src="{FILM}.mp4" type="video/mp4">
+        <track kind="captions" src="{FILM}.vtt" srclang="en" label="English">
+      </video>
+      <button class="film-play" type="button" hidden aria-label="Play the video (2 minutes 57 seconds)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>
+    </figure>
+  </div>
+</section>
+{FILM_JS}
 
 <section id="problem" class="band">
   <div class="wrap">

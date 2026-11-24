@@ -456,3 +456,24 @@ footer ul a:hover{ color: var(--gold-on-dark); }
   .hero2{ grid-template-columns: 1fr; gap: 26px; }
   .diptych{ order: -1; gap: 10px; }
 }
+
+/* Home film: Lily's interview, hung like a painting in the exhibit, with
+   the same black frame and gilt slip. */
+.film-sec{ padding: 72px 0 var(--flow-section); }
+.film{ position: relative; max-width: 960px; margin: 0 auto; aspect-ratio: 16/9; background: var(--primary-dk);
+  border: 12px solid #15181E; border-radius: 6px; box-shadow: 0 30px 60px -30px rgba(19,40,64,0.75); }
+.film::after{ content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 2px var(--gold); pointer-events: none; }
+.film video{ display: block; width: 100%; height: 100%; object-fit: cover; }
+.film-play{ position: absolute; inset: 0; margin: auto; width: 88px; height: 88px; border: 0; border-radius: 50%;
+  background: rgba(10,36,64,0.9); color: #FFFFFF; display: grid; place-items: center; cursor: pointer;
+  box-shadow: 0 14px 30px -12px rgba(0,0,0,0.7); transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
+.film-play[hidden]{ display: none; }
+.film-play:hover, .film-play:focus-visible{ background: var(--gold-on-dark); color: var(--primary-dk); transform: scale(1.05); }
+.film-play svg{ width: 36px; height: 36px; margin-left: 5px; }
+.film.playing .film-play{ display: none; }
+@media (max-width: 620px){
+  .film-sec{ padding: 44px 0 56px; }
+  .film{ border-width: 7px; }
+  .film-play{ width: 68px; height: 68px; }
+  .film-play svg{ width: 28px; height: 28px; }
+}
