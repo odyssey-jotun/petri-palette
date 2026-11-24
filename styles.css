@@ -460,6 +460,7 @@ footer ul a:hover{ color: var(--gold-on-dark); }
 /* Home film: Lily's interview, hung like a painting in the exhibit, with
    the same black frame and gilt slip. */
 .film-sec{ padding: 72px 0 var(--flow-section); }
+.film-sec .section-head{ max-width: 900px; }
 .film{ position: relative; max-width: 960px; margin: 0 auto; aspect-ratio: 16/9; background: var(--primary-dk);
   border: 12px solid #15181E; border-radius: 6px; box-shadow: 0 30px 60px -30px rgba(19,40,64,0.75); }
 .film::after{ content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 2px var(--gold); pointer-events: none; }

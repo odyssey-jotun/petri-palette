@@ -367,9 +367,9 @@ TRIP_SIZES = "(max-width: 860px) 46vw, 320px"
 
 
 FILM = "video/petri-palette-lily-butler"
-FILM_SCHEMA = {"@type": "VideoObject", "@id": SITE + "#film", "name": "Petri Palette, in my own words",
-               "description": "Lily Butler on who she paints cells for, why biology can feel hard, her six weeks in a cancer lab at UAMS, "
-                              "and how she turns a stage of mitosis into a painting.",
+FILM_SCHEMA = {"@type": "VideoObject", "@id": SITE + "#film", "name": "For students who think science isn't for them",
+               "description": "Why biology loses so many students once it moves inside the cell, and how paintings of cells help them see "
+                              "what they are learning. Lily Butler explains how she paints each stage and what she hopes students take away.",
                "thumbnailUrl": SITE + "images/lily-video-poster.webp", "uploadDate": "2026-11-23", "duration": "PT2M57S",
                "contentUrl": SITE + FILM + ".mp4", "inLanguage": "en-US", "author": {"@id": SITE + "#lily"}}
 
@@ -410,8 +410,8 @@ def index():
 <section id="film" class="film-sec">
   <div class="wrap">
     <div class="section-head center">
-      <h2>In my own words</h2>
-      <p>Who I paint for, what I learned in a cancer lab, and how a cell becomes a painting.</p>
+      <h2>For students who think science isn't for them</h2>
+      <p>Why biology loses so many students, and how seeing a cell can win them back.</p>
     </div>
     <figure class="film">
       <video controls playsinline preload="none" poster="images/lily-video-poster.webp" width="1920" height="1080">
