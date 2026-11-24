@@ -9,6 +9,10 @@ copy live in this file too, so a correction is made once.
 Lily's paintings: drop each scanned painting into images/art/ as a .webp or
 .jpg (about 1200px on the long side, portrait 4:5 looks best) and set its file
 name in "art" on the piece below. Until then the frame shows a line drawing.
+
+Button labels stay short: two or three words, four syllables at most
+("View gallery", "Read the research"). Longer labels are too much to take in
+at a glance, so the build stops on one.
 """
 import json
 import re
@@ -547,7 +551,7 @@ def index():
 </section>
 """ + cta("From one cell splitting in two to a gene becoming a protein",
           f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings, each with a title card that explains the science in a minute or less.",
-          "exhibit.html", "View gallery", ("artists.html", "Meet the artists who paint cells")) + sources(["nagb", "edsource"]) + "\n</main>\n" + foot()
+          "exhibit.html", "View gallery", ("artists.html", "Meet the artists")) + sources(["nagb", "edsource"]) + "\n</main>\n" + foot()
 
 
 # ---------------------------------------------------------------- exhibit
@@ -586,7 +590,7 @@ def exhibit():
       <h1>Protein synthesis, mitosis and cancer cells, painted</h1>
       <p class="lede">My {WORDS[N_PIECES]} paintings, in {WORDS[len(SERIES)]} series. Read each title card beside its painting, the way you would in a museum.</p>
       <div class="btn-row center">
-        <a href="#protein-transcription" class="btn">Start with protein transcription</a>
+        <a href="#protein-transcription" class="btn">Start the tour</a>
       </div>
     </div>
     {hero_img("hero-bright-gallery", "A visitor standing in a bright gallery, looking at a wall of colorful paintings", PAGE_SIZES)}
@@ -784,7 +788,7 @@ def artists():
       <h1>{ARTISTS_H1}</h1>
       <p class="lede">{ARTISTS_LEDE}</p>
       <div class="btn-row center">
-        <a href="#{first}" class="btn">Walk through the gallery</a>
+        <a href="#{first}" class="btn">See their work</a>
       </div>
     </div>
     {hero_img(ARTISTS_HERO, ARTISTS_HERO_ALT, PAGE_SIZES)}
@@ -913,7 +917,7 @@ def about():
 </section>
 """ + cta(f"{WORDS[N_PIECES].capitalize()} paintings, one title card each",
           "The stages of mitosis and the path from gene to protein.",
-          "exhibit.html", "View gallery", ("artists.html", "Meet the artists who paint cells")) + "\n</main>\n" + foot()
+          "exhibit.html", "View gallery", ("artists.html", "Meet the artists")) + "\n</main>\n" + foot()
 
 
 # ---------------------------------------------------------------- research
@@ -1041,11 +1045,31 @@ def sitemap():
 
 FAVICON = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">{DISH}</svg>\n'
 
+BTN_MAX_SYLLABLES = 4
+
+
+def syllables(word):
+    """Rough count: vowel groups, minus a silent final e."""
+    w = word.lower().strip(".,!?'")
+    n = len(re.findall(r"[aeiouy]+", w))
+    if w.endswith("e") and not w.endswith(("le", "ee")) and n > 1:
+        n -= 1
+    return max(n, 1)
+
+
+def check_buttons(name, html):
+    for label in re.findall(r'class="btn[^"]*"[^>]*>([^<]+)<', html):
+        if sum(syllables(w) for w in label.split()) > BTN_MAX_SYLLABLES:
+            raise SystemExit(f"{name}: button '{label}' is too long. Keep it to {BTN_MAX_SYLLABLES} syllables.")
+
+
 if __name__ == "__main__":
     out = {"index.html": index, "exhibit.html": exhibit, "artists.html": artists, "research.html": research, "about.html": about}
     for name, fn in out.items():
+        html = fn()
+        check_buttons(name, html)
         with open(name, "w") as f:
-            f.write(fn())
+            f.write(html)
         print("wrote", name)
     with open("sitemap.xml", "w") as f:
         f.write(sitemap())

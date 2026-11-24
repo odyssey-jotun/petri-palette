@@ -38,6 +38,7 @@ Styles live in `styles.css` and are minified and inlined by the build.
 ## Rules this site follows
 
 - Every figure is checked against its source and cited in plain text. The site has zero external links.
+- Button labels are two or three words, four syllables at most ("View gallery", "Read the research"). Longer labels are too much to take in at a glance. `build.py` stops with an error if a `.btn` label runs longer.
 - Left off on purpose: the claim that low-income schools offer fewer advanced STEM courses, because the PubMed Central paper first found for it (PMC6559120) is an unrelated study. The PISA screen-time figures are cited to the OECD rather than an NIH preprint.
 - Hero photos show people. Photos have rounded corners and a light color pass.
 - No em dashes, no small uppercase labels above headings, no bold phrases inside sentences.
