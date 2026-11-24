@@ -397,7 +397,7 @@ def index():
       <h1>Science anyone can see</h1>
       <p class="lede">Cellular science that strengthens the mind and sweetens the senses</p>
       <div class="btn-row center">
-        <a href="exhibit.html" class="btn light">Walk through the exhibit</a>
+        <a href="exhibit.html" class="btn light">View gallery</a>
       </div>
     </div>
     <div class="diptych">
@@ -489,7 +489,7 @@ def index():
       </li>
     </ol>
     <div class="btn-row center">
-      <a href="exhibit.html" class="btn">Walk through the exhibit</a>
+      <a href="exhibit.html" class="btn">View gallery</a>
     </div>
   </div>
 </section>
@@ -547,7 +547,7 @@ def index():
 </section>
 """ + cta("From one cell splitting in two to a gene becoming a protein",
           f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings, each with a title card that explains the science in a minute or less.",
-          "exhibit.html", "Walk through the exhibit", ("artists.html", "Meet the artists who paint cells")) + sources(["nagb", "edsource"]) + "\n</main>\n" + foot()
+          "exhibit.html", "View gallery", ("artists.html", "Meet the artists who paint cells")) + sources(["nagb", "edsource"]) + "\n</main>\n" + foot()
 
 
 # ---------------------------------------------------------------- exhibit
@@ -838,7 +838,7 @@ def artists():
 </section>
 """ + cta(f"{WORDS.get(N_PIECES, N_PIECES).capitalize()} paintings of the cells biology class teaches",
           "The stages of mitosis and the path from gene to protein, each with a title card I wrote.",
-          "exhibit.html", "Walk through the exhibit", ("research.html", "Read the research")) + f"""
+          "exhibit.html", "View gallery", ("research.html", "Read the research")) + f"""
 <section class="refs" id="credits">
   <div class="wrap">
     <h2>Image credits</h2>
@@ -890,7 +890,7 @@ def about():
       <h1>I paint the cells biology class asks students to memorize</h1>
       <p class="lede">I'm Lily Butler, a senior in Little Rock. Biology class asks students to learn cells they have never seen, so I paint them one stage at a time, and the next student who meets mitosis already has a picture of it.</p>
       <div class="btn-row center">
-        <a href="exhibit.html" class="btn light">Walk through my exhibit</a>
+        <a href="exhibit.html" class="btn light">View gallery</a>
       </div>
     </div>
     <div class="studio-art">
@@ -913,7 +913,7 @@ def about():
 </section>
 """ + cta(f"{WORDS[N_PIECES].capitalize()} paintings, one title card each",
           "The stages of mitosis and the path from gene to protein.",
-          "exhibit.html", "Walk through my exhibit", ("artists.html", "Meet the artists who paint cells")) + "\n</main>\n" + foot()
+          "exhibit.html", "View gallery", ("artists.html", "Meet the artists who paint cells")) + "\n</main>\n" + foot()
 
 
 # ---------------------------------------------------------------- research
@@ -1029,7 +1029,7 @@ def research():
 </section>
 """ + cta("See the research turned into paintings",
           "Cells, chromosomes and proteins, painted at a size you can study.",
-          "exhibit.html", "Walk through the exhibit") + sources(
+          "exhibit.html", "View gallery") + sources(
         ["nagb", "edsource", "potvin", "ltt", "pisa", "hardiman", "ainsworth"],
         note="Photos: Unsplash (Eri Pan&ccedil;i, Caroline Badran, Egor Myznik, Trust Katsande, Madalyn Cox).") + "\n</main>\n" + foot()
 
